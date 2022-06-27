@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "119683020581",
+    "project_id": "birds-i-view-b843d",
+    "storage_bucket": "birds-i-view-b843d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:119683020581:android:d5deebfd22d9485e958ccc",
+        "android_client_info": {
+          "package_name": "com.birds_i_view"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "119683020581-rquqdfo3e133kcpm2ljiov9bcjivngfv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB52cEyrdohUFRR4wRxk6lSRo2L8fw10zs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "119683020581-rquqdfo3e133kcpm2ljiov9bcjivngfv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
