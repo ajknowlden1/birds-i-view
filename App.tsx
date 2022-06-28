@@ -12,10 +12,6 @@ export default function App(){
   interface userShape { username: string; }
   const [user, setUser] = useState<userShape | null>(null);
 
-  // useEffect(() => {
-  //   setUser({ username: "test" });
-  // }, []);
-
 
   return (
     <NavigationContainer>
