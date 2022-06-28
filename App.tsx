@@ -29,7 +29,7 @@ export default function App(){
       </Stack.Navigator>
     </NavigationContainer>
   );
-}
+}11
 
 const styles = StyleSheet.create({
   container: {
