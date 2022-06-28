@@ -31,16 +31,16 @@ export default function Homefeed() {
   const birdsNames: string[] = [];
 
   useEffect(() => {
+    setIsLoading(true);
     navigator.geolocation.getCurrentPosition((position) => {
       setLat(Math.trunc(position.coords.latitude));
       setLng(Math.trunc(position.coords.longitude));
     });
 
-    if (lat !== 0 && lng !== 0) {
-      getRecentBirdsByLocation(lat, lng).then((res: any) => {
-        setBirds(res.data);
-      });
-    }
+    getRecentBirdsByLocation(lat, lng).then((res: any) => {
+      setBirds(res.data);
+      setIsLoading(false);
+    });
   }, [lat, lng]);
 
   birds.forEach((bird) => {
@@ -58,7 +58,7 @@ export default function Homefeed() {
         setIsLoading(false);
       });
     });
-  }, []);
+  }, [birds]);
 
   const styles = StyleSheet.create({
     localFeed: {
@@ -92,6 +92,7 @@ export default function Homefeed() {
         <Text>Loading data, please wait...</Text>
       </View>
     );
+
   return (
     <>
       <NavBar></NavBar>
