@@ -23,7 +23,6 @@ export default function Homefeed() {
     subId: string;
   }
   const [birds, setBirds] = useState<IBirds[] | []>([]);
-
   const [lat, setLat] = useState(0);
   const [lng, setLng] = useState(0);
   const [imgUrls, setImgUrls] = useState<any>([]);
@@ -49,11 +48,12 @@ export default function Homefeed() {
 
   useEffect(() => {
     setIsLoading(true);
+
     birdsNames.forEach((birdName) => {
       getImageByBirdName(birdName, 1).then((res: any) => {
         setImgUrls((previous: any) => [
           ...previous,
-          res.data.photos[0].src.original,
+          res.data.photos[0].src.original, // BUG this line leads to unexpected result in displaying birds pictures as the previous urls are not wiped out
         ]);
         setIsLoading(false);
       });
