@@ -7,9 +7,12 @@ export const NavBottom = () => {
       marginLeft: "auto",
       marginRight: "auto",
       marginTop: "5px",
-      width: "40%",
+      width: "90%",
       height: "2.5%",
       justifyContent: "center",
+      alignContent: "center",
+      borderColor: "black",
+      borderWidth: 2,
     },
     navItem: {
       paddingLeft: "20px",

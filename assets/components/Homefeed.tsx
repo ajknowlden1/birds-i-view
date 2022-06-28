@@ -186,18 +186,202 @@ export default function Homefeed() {
       locationPrivate: true,
       subId: "S113505510",
     },
+    {
+      speciesCode: "eurgol",
+      comName: "European Goldfinch",
+      sciName: "Carduelis carduelis",
+      locId: "L12907860",
+      locName: "Home",
+      obsDt: "2022-06-22 06:00",
+      howMany: 1,
+      lat: 53.6069079,
+      lng: -1.3698524,
+      obsValid: true,
+      obsReviewed: false,
+      locationPrivate: true,
+      subId: "S113505510",
+    },
+    {
+      speciesCode: "eurgre1",
+      comName: "European Greenfinch",
+      sciName: "Chloris chloris",
+      locId: "L12907860",
+      locName: "Home",
+      obsDt: "2022-06-22 06:00",
+      howMany: 2,
+      lat: 53.6069079,
+      lng: -1.3698524,
+      obsValid: true,
+      obsReviewed: false,
+      locationPrivate: true,
+      subId: "S113505510",
+    },
+    {
+      speciesCode: "houspa",
+      comName: "House Sparrow",
+      sciName: "Passer domesticus",
+      locId: "L12907860",
+      locName: "Home",
+      obsDt: "2022-06-22 06:00",
+      howMany: 9,
+      lat: 53.6069079,
+      lng: -1.3698524,
+      obsValid: true,
+      obsReviewed: false,
+      locationPrivate: true,
+      subId: "S113505510",
+    },
+    {
+      speciesCode: "wlwwar",
+      comName: "Willow Warbler",
+      sciName: "Phylloscopus trochilus",
+      locId: "L8880299",
+      locName: "Soil Hill",
+      obsDt: "2022-06-22 05:48",
+      howMany: 5,
+      lat: 53.7789369,
+      lng: -1.8855123,
+      obsValid: true,
+      obsReviewed: false,
+      locationPrivate: false,
+      subId: "S113505026",
+    },
+    {
+      speciesCode: "commoo3",
+      comName: "Eurasian Moorhen",
+      sciName: "Gallinula chloropus",
+      locId: "L8880299",
+      locName: "Soil Hill",
+      obsDt: "2022-06-22 05:48",
+      howMany: 2,
+      lat: 53.7789369,
+      lng: -1.8855123,
+      obsValid: true,
+      obsReviewed: false,
+      locationPrivate: false,
+      subId: "S113505026",
+    },
+    {
+      speciesCode: "rinphe",
+      comName: "Ring-necked Pheasant",
+      sciName: "Phasianus colchicus",
+      locId: "L8880299",
+      locName: "Soil Hill",
+      obsDt: "2022-06-22 05:48",
+      howMany: 4,
+      lat: 53.7789369,
+      lng: -1.8855123,
+      obsValid: true,
+      obsReviewed: false,
+      locationPrivate: false,
+      subId: "S113505026",
+    },
+    {
+      speciesCode: "cangoo",
+      comName: "Canada Goose",
+      sciName: "Branta canadensis",
+      locId: "L8880299",
+      locName: "Soil Hill",
+      obsDt: "2022-06-22 05:48",
+      howMany: 13,
+      lat: 53.7789369,
+      lng: -1.8855123,
+      obsValid: true,
+      obsReviewed: false,
+      locationPrivate: false,
+      subId: "S113505026",
+    },
+    {
+      speciesCode: "whiwag",
+      comName: "White Wagtail",
+      sciName: "Motacilla alba",
+      locId: "L8880299",
+      locName: "Soil Hill",
+      obsDt: "2022-06-22 05:48",
+      howMany: 2,
+      lat: 53.7789369,
+      lng: -1.8855123,
+      obsValid: true,
+      obsReviewed: false,
+      locationPrivate: false,
+      subId: "S113505026",
+    },
+    {
+      speciesCode: "lbbgul",
+      comName: "Lesser Black-backed Gull",
+      sciName: "Larus fuscus",
+      locId: "L8880299",
+      locName: "Soil Hill",
+      obsDt: "2022-06-22 05:48",
+      howMany: 5,
+      lat: 53.7789369,
+      lng: -1.8855123,
+      obsValid: true,
+      obsReviewed: false,
+      locationPrivate: false,
+      subId: "S113505026",
+    },
+    {
+      speciesCode: "eurcur",
+      comName: "Eurasian Curlew",
+      sciName: "Numenius arquata",
+      locId: "L8880299",
+      locName: "Soil Hill",
+      obsDt: "2022-06-22 05:48",
+      howMany: 1,
+      lat: 53.7789369,
+      lng: -1.8855123,
+      obsValid: true,
+      obsReviewed: false,
+      locationPrivate: false,
+      subId: "S113505026",
+    },
+    {
+      speciesCode: "grewhi1",
+      comName: "Greater Whitethroat",
+      sciName: "Curruca communis",
+      locId: "L8880299",
+      locName: "Soil Hill",
+      obsDt: "2022-06-22 05:48",
+      howMany: 7,
+      lat: 53.7789369,
+      lng: -1.8855123,
+      obsValid: true,
+      obsReviewed: false,
+      locationPrivate: false,
+      subId: "S113505026",
+    },
+    {
+      speciesCode: "eurjac",
+      comName: "Eurasian Jackdaw",
+      sciName: "Corvus monedula",
+      locId: "L8880299",
+      locName: "Soil Hill",
+      obsDt: "2022-06-22 05:48",
+      howMany: 5,
+      lat: 53.7789369,
+      lng: -1.8855123,
+      obsValid: true,
+      obsReviewed: false,
+      locationPrivate: false,
+      subId: "S113505026",
+    },
   ]);
   const styles = StyleSheet.create({
     localFeed: {
-      height: "80%",
       borderColor: "black",
       borderWidth: 2,
       borderStyle: "solid",
+      backgroundColor: "darkblue",
+      marginBottom: "2.5%",
+      height: 50,
 
       marginLeft: 20,
       marginRight: 20,
     },
     listItem: {
+      flex: 1,
+      flexDirection: "row",
       marginTop: 2.5,
       marginBottom: 2.5,
       borderColor: "black",
@@ -205,29 +389,31 @@ export default function Homefeed() {
       borderStyle: "solid",
       paddingLeft: 2.5,
       paddingRight: 2.5,
+      backgroundColor: "royalblue",
     },
   });
   return (
     <>
       <NavBar></NavBar>
-      <ScrollView style={styles.localFeed}>
-        <Text>Sightings Summary</Text>
-        {birds.map((bird) => {
-          return (
-            <>
-              <View style={styles.listItem}>
-                <Text>{`${bird.howMany} ${bird.comName}`}</Text>
-                <Text>{bird.locName}</Text>
-                <Image
-                  source={{
-                    uri: "https://images.pexels.com/photos/70069/pexels-photo-70069.jpeg",
-                  }}
-                  style={{ width: "50px", height: "50px", padding: 2.5 }}
-                ></Image>
-              </View>
-            </>
-          );
-        })}
+      <Text style={{ padding: 10 }}>Sightings Summary</Text>
+      <ScrollView style={styles.localFeed} nestedScrollEnabled={true}>
+        <View>
+          {birds.map((bird) => {
+            return (
+              <>
+                <View style={styles.listItem}>
+                  <Image
+                    source={{
+                      uri: "https://images.pexels.com/photos/70069/pexels-photo-70069.jpeg",
+                    }}
+                    style={{ width: "50px", height: "50px", padding: 2.5 }}
+                  ></Image>
+                  <Text>{`${bird.howMany} ${bird.comName} at ${bird.locName}`}</Text>
+                </View>
+              </>
+            );
+          })}
+        </View>
       </ScrollView>
       <NavBottom></NavBottom>
     </>
