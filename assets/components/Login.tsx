@@ -3,7 +3,7 @@ import {auth} from './firebase/config'
 import React from "react"
 import {View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Dimensions, ScrollView, FlatList, Alert} from "react-native"
 
-export default function Login() {
+export default function Login({navigation}) {
 
     const [loggedIn, setLoggedIn] = React.useState(false);
     const [email, setEmail] = React.useState('');
@@ -13,7 +13,7 @@ export default function Login() {
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 setLoggedIn(true)
-                console.log(loggedIn)
+                navigation.navigate('Homefeed')
             })
             .catch((error) => {
                 alert(error)
@@ -21,6 +21,9 @@ export default function Login() {
             })
     }
 
+    function register(){
+        navigation.navigate('Register')
+    }
     
     return (
         <View
@@ -42,6 +45,7 @@ export default function Login() {
                 value={password}
                 />
             <TouchableOpacity style={styles.button} onPress={submit}><Text>Submit</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={register}><Text>Make an Account?</Text></TouchableOpacity>
         </View>
     );
 }

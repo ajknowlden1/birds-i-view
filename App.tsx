@@ -3,8 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { useState, useEffect } from "react";
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import Login from "./assets/components/Login";
-import Homefeed from "./assets/components/Homefeed";
+import {Login, Homefeed, Register} from "./assets/components/";
 
 const Stack = createStackNavigator();
 
@@ -18,8 +17,12 @@ export default function App(){
       <Stack.Navigator>
        { user ? (
           <Stack.Screen name="Homefeed" component={Homefeed} />
-        ) : ( 
+        ) : (
+          <>
           <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Register" component={Register} />
+          <Stack.Screen name="Homefeed" component={Homefeed} />
+          </>
         )}
 
       </Stack.Navigator>
