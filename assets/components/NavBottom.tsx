@@ -8,7 +8,7 @@ export const NavBottom = () => {
       marginRight: "auto",
       marginTop: "5px",
       width: "90%",
-      height: "2.5%",
+      height: "auto",
       justifyContent: "center",
       alignContent: "center",
       borderColor: "black",
