@@ -1,10 +1,9 @@
 import {signInWithEmailAndPassword } from "firebase/auth";
 import {auth} from './firebase/config'
-import React from "react"
+import React, {useState} from "react"
 import {View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Dimensions, ScrollView, FlatList, Alert} from "react-native"
 
-export default function Login({navigation}) {
-
+export default function Login({navigation}: {navigation: any}) {
     const [loggedIn, setLoggedIn] = React.useState(false);
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
@@ -17,7 +16,7 @@ export default function Login({navigation}) {
             })
             .catch((error) => {
                 alert(error)
-                setLoggedIn
+                setLoggedIn(false)
             })
     }
 
@@ -57,7 +56,8 @@ const styles = StyleSheet.create({
     text:{
         padding: 15,
         fontSize: 25,
-        margin: 5},
+        margin: 5,
+        textAlign: "center"},
     button:{
         backgroundColor: '#9cbedb',
         borderRadius: 15,
