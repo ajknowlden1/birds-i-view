@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Image } from "react-native";
 import { NavBar } from "./NavBar";
 import { NavBottom } from "./NavBottom";
 import { useState } from "react";
@@ -211,12 +211,19 @@ export default function Homefeed() {
     <>
       <NavBar></NavBar>
       <ScrollView style={styles.localFeed}>
+        <Text>Sightings Summary</Text>
         {birds.map((bird) => {
           return (
             <>
               <View style={styles.listItem}>
                 <Text>{`${bird.howMany} ${bird.comName}`}</Text>
                 <Text>{bird.locName}</Text>
+                <Image
+                  source={{
+                    uri: "https://images.pexels.com/photos/70069/pexels-photo-70069.jpeg",
+                  }}
+                  style={{ width: "50px", height: "50px", padding: 2.5 }}
+                ></Image>
               </View>
             </>
           );
