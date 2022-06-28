@@ -1,8 +1,9 @@
 import { StyleSheet, Text, View, Image } from "react-native";
 import { NavBar } from "./NavBar";
 import { NavBottom } from "./NavBottom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ScrollView } from "react-native-gesture-handler";
+import { getRecentBirdsByLocation } from "../api/ebird";
 
 export default function Homefeed() {
   const [birds, setBirds] = useState([
@@ -367,6 +368,24 @@ export default function Homefeed() {
       subId: "S113505026",
     },
   ]);
+
+  const [lat, setLat] = useState(0);
+  const [lng, setLng] = useState(0);
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      setLat(Math.trunc(position.coords.latitude));
+      setLng(Math.trunc(position.coords.longitude));
+    });
+
+    if (lat !== 0 && lng !== 0) {
+      getRecentBirdsByLocation(lat, lng).then((res: any) => {
+        setBirds(res.data);
+        console.log(res.data);
+      });
+    }
+  }, [lat, lng]);
+
   const styles = StyleSheet.create({
     localFeed: {
       borderColor: "black",
