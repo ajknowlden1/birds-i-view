@@ -1,33 +1,33 @@
-import { reload, getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import {signInWithEmailAndPassword } from "firebase/auth";
+import {auth} from './firebase/config'
 import React from "react"
 import {View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Dimensions, ScrollView, FlatList, Alert} from "react-native"
 
 export default function Login() {
 
-    const [username, setUsername] = React.useState('');
+    const [loggedIn, setLoggedIn] = React.useState(false);
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
 
     function submit(){
-        const newUser = {username: username,
-                         email: email,
-                         password: password}
-
-        console.debug(newUser)
+        signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                setLoggedIn(true)
+                console.log(loggedIn)
+            })
+            .catch((error) => {
+                alert(error)
+                setLoggedIn
+            })
     }
 
+    
     return (
         <View
             style={styles.container}
         >
             <Text style={styles.text}>Login</Text>
 
-            <TextInput
-                autoCapitalize='none'
-                style={styles.text} placeholder='username'
-                onChangeText={setUsername}
-                value={username}
-                />
             <TextInput
                 autoCapitalize='none'
                 style={styles.text} placeholder='email'
