@@ -4,6 +4,7 @@ import { NavBottom } from "./NavBottom";
 import { useState, useEffect } from "react";
 import { ScrollView } from "react-native-gesture-handler";
 import { getRecentBirdsByLocation } from "../api/ebird";
+import { getImageByBirdName } from "../api/pexel";
 
 export default function Homefeed() {
   const [birds, setBirds] = useState([
@@ -368,9 +369,11 @@ export default function Homefeed() {
       subId: "S113505026",
     },
   ]);
-
   const [lat, setLat] = useState(0);
   const [lng, setLng] = useState(0);
+  const [imgUrls, setImgUrls] = useState<any>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const birdsNames: string[] = [];
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
@@ -381,10 +384,26 @@ export default function Homefeed() {
     if (lat !== 0 && lng !== 0) {
       getRecentBirdsByLocation(lat, lng).then((res: any) => {
         setBirds(res.data);
-        console.log(res.data);
       });
     }
   }, [lat, lng]);
+
+  birds.forEach((bird) => {
+    birdsNames.push(bird.comName);
+  });
+
+  useEffect(() => {
+    setIsLoading(true);
+    birdsNames.forEach((birdName) => {
+      getImageByBirdName(birdName, 1).then((res: any) => {
+        setImgUrls((previous: any) => [
+          ...previous,
+          res.data.photos[0].src.original,
+        ]);
+        setIsLoading(false);
+      });
+    });
+  }, []);
 
   const styles = StyleSheet.create({
     localFeed: {
@@ -411,19 +430,26 @@ export default function Homefeed() {
       backgroundColor: "royalblue",
     },
   });
+
+  if (isLoading)
+    return (
+      <View>
+        <Text>Loading data, please wait...</Text>
+      </View>
+    );
   return (
     <>
       <NavBar></NavBar>
       <Text style={{ padding: 10 }}>Sightings Summary</Text>
       <ScrollView style={styles.localFeed} nestedScrollEnabled={true}>
         <View>
-          {birds.map((bird) => {
+          {birds.map((bird, index) => {
             return (
               <>
                 <View style={styles.listItem}>
                   <Image
                     source={{
-                      uri: "https://images.pexels.com/photos/70069/pexels-photo-70069.jpeg",
+                      uri: imgUrls[index],
                     }}
                     style={{ width: "50px", height: "50px", padding: 2.5 }}
                   ></Image>
