@@ -1,3 +1,4 @@
+
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import React, { useState, useEffect } from "react";
@@ -13,7 +14,6 @@ export default function App(){
   interface userProps { user: Function }
   const [user, setUser] = React.useState(null);
   const Hello = "hello"
-
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -28,8 +28,8 @@ export default function App(){
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
