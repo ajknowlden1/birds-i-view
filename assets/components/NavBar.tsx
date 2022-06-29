@@ -3,17 +3,18 @@ import { StyleSheet, Text, View } from "react-native";
 export const NavBar = () => {
   const styles = StyleSheet.create({
     navBar: {
+      flex: 0.125,
       flexDirection: "row",
       marginLeft: "auto",
       marginRight: "auto",
-      marginTop: "5px",
-      width: "40%",
-      height: "2.5%",
+      marginTop: 2.5,
+
+      height: 2.5,
       justifyContent: "center",
     },
     navItem: {
-      paddingLeft: "20px",
-      paddingRight: "20px",
+      paddingLeft: 20,
+      paddingRight: 20,
     },
   });
   return (

@@ -373,7 +373,7 @@ export default function Homefeed() {
       borderWidth: 2,
       borderStyle: "solid",
       backgroundColor: "darkblue",
-      marginBottom: "2.5%",
+      marginBottom: 2.5,
       height: 50,
 
       marginLeft: 20,
@@ -406,7 +406,7 @@ export default function Homefeed() {
                     source={{
                       uri: "https://images.pexels.com/photos/70069/pexels-photo-70069.jpeg",
                     }}
-                    style={{ width: "50px", height: "50px", padding: 2.5 }}
+                    style={{ width: 50, height: 50, padding: 2.5 }}
                   ></Image>
                   <Text>{`${bird.howMany} ${bird.comName} at ${bird.locName}`}</Text>
                 </View>

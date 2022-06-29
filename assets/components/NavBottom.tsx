@@ -6,8 +6,8 @@ export const NavBottom = () => {
       flexDirection: "row",
       marginLeft: "auto",
       marginRight: "auto",
-      marginTop: "5px",
-      width: "90%",
+      marginTop: 5,
+
       height: "auto",
       justifyContent: "center",
       alignContent: "center",
@@ -15,8 +15,8 @@ export const NavBottom = () => {
       borderWidth: 2,
     },
     navItem: {
-      paddingLeft: "20px",
-      paddingRight: "20px",
+      paddingLeft: 20,
+      paddingRight: 20,
 
       flex: 1,
     },
