@@ -39,9 +39,8 @@ export const PostcodeLookup = (props: any) => {
     <>
       <View>
         <TextInput
-          onChange={(e: any) => {
-            setPostcode(e.target.value);
-          }}
+          onChangeText={setPostcode}
+          value={postcode}
           placeholder="Insert Postcode"
         ></TextInput>
         <Button title="Look Up" onPress={() => handleSubmitPostcode()}></Button>
