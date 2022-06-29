@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
+import { PostcodeLookup } from "./PostcodeLookup";
 
-export const NavBottom = () => {
+export const NavBottom = (props: any) => {
   const styles = StyleSheet.create({
     navBar: {
       flexDirection: "row",
@@ -22,10 +23,12 @@ export const NavBottom = () => {
     },
   });
   return (
-    <View style={styles.navBar}>
-      <Text style={styles.navItem}>Lookup Bird</Text>
-      <Text style={styles.navItem}>Lookup Postcode</Text>
-      <Text style={styles.navItem}>Submit Sighting</Text>
-    </View>
+    <>
+      <View style={styles.navBar}>
+        <Text style={styles.navItem}>Lookup Bird</Text>
+        <PostcodeLookup setBirds={props.setBirds}></PostcodeLookup>
+        <Text style={styles.navItem}>Submit Sighting</Text>
+      </View>
+    </>
   );
 };

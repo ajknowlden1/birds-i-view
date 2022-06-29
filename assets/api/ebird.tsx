@@ -1,13 +1,15 @@
 import axios from "axios";
+import { apiKeys } from "../../secretKeys";
 
 const eBirdApi = axios.create({
   baseURL: "https://api.ebird.org/v2/",
-  headers: API TOKEN
+  headers: { "X-eBirdApiToken": apiKeys.ebird },
 });
 
-export const getRecentBirdsByLocation = (lat:number, lng:number) => {
-  return eBirdApi.get("data/obs/geo/recent?", { params: { lat, lng } })
-  .then((res) => {
-    return res;
-  })
+export const getBirdsByLocation = (lat: number, lng: number) => {
+  return eBirdApi
+    .get("data/obs/geo/recent?", { params: { lat, lng } })
+    .then((res) => {
+      return res;
+    });
 };

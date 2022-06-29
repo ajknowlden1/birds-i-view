@@ -367,6 +367,7 @@ export default function Homefeed() {
       subId: "S113505026",
     },
   ]);
+
   const styles = StyleSheet.create({
     localFeed: {
       borderColor: "black",
@@ -408,14 +409,18 @@ export default function Homefeed() {
                     }}
                     style={{ width: 50, height: 50, padding: 2.5 }}
                   ></Image>
-                  <Text>{`${bird.howMany} ${bird.comName} at ${bird.locName}`}</Text>
+                  <Text>
+                    {bird.howMany
+                      ? `${bird.howMany} ${bird.comName} at ${bird.locName}`
+                      : `${bird.comName} at ${bird.locName}`}
+                  </Text>
                 </View>
               </>
             );
           })}
         </View>
       </ScrollView>
-      <NavBottom></NavBottom>
+      <NavBottom setBirds={setBirds}></NavBottom>
     </>
   );
 }
