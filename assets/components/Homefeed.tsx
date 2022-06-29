@@ -4,7 +4,7 @@ import { NavBottom } from "./NavBottom";
 import { useState } from "react";
 import { ScrollView } from "react-native-gesture-handler";
 
-export default function Homefeed() {
+export default function Homefeed({navigation}: {navigation: any}) {
   const [birds, setBirds] = useState([
     {
       speciesCode: "eurrob1",
@@ -394,7 +394,7 @@ export default function Homefeed() {
   });
   return (
     <>
-      <NavBar></NavBar>
+      <NavBar navigation={navigation}></NavBar>
       <Text style={{ padding: 10 }}>Sightings Summary</Text>
       <ScrollView style={styles.localFeed} nestedScrollEnabled={true}>
         <View>
