@@ -1,65 +1,372 @@
 import { StyleSheet, Text, View, Image } from "react-native";
 import { NavBar } from "./NavBar";
 import { NavBottom } from "./NavBottom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { ScrollView } from "react-native-gesture-handler";
-import { getRecentBirdsByLocation } from "../api/ebird";
-import { getImageByBirdName } from "../api/pexel";
 
 export default function Homefeed() {
-  interface IBirds {
-    speciesCode: string;
-    comName: string;
-    sciName: string;
-    locId: string;
-    locName: string;
-    obsDt: string;
-    howMany: number;
-    lat: number;
-    lng: number;
-    obsValid: boolean;
-    obsReviewed: boolean;
-    locationPrivate: boolean;
-    subId: string;
-  }
-  const [birds, setBirds] = useState<IBirds[] | []>([]);
-  const [lat, setLat] = useState(0);
-  const [lng, setLng] = useState(0);
-  const [imgUrls, setImgUrls] = useState<any>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const birdsNames: string[] = [];
-
-  useEffect(() => {
-    setIsLoading(true);
-    navigator.geolocation.getCurrentPosition((position) => {
-      setLat(Math.trunc(position.coords.latitude));
-      setLng(Math.trunc(position.coords.longitude));
-    });
-
-    getRecentBirdsByLocation(lat, lng).then((res: any) => {
-      setBirds(res.data);
-      setIsLoading(false);
-    });
-  }, [lat, lng]);
-
-  birds.forEach((bird) => {
-    birdsNames.push(bird.comName);
-  });
-
-  useEffect(() => {
-    setIsLoading(true);
-
-    birdsNames.forEach((birdName) => {
-      getImageByBirdName(birdName, 1).then((res: any) => {
-        setImgUrls((previous: any) => [
-          ...previous,
-          res.data.photos[0].src.original, // BUG this line leads to unexpected result in displaying birds pictures as the previous urls are not wiped out
-        ]);
-        setIsLoading(false);
-      });
-    });
-  }, [birds]);
-
+  const [birds, setBirds] = useState([
+    {
+      speciesCode: "eurrob1",
+      comName: "European Robin",
+      sciName: "Erithacus rubecula",
+      locId: "L2578311",
+      locName: "Cromwell Bottom NR",
+      obsDt: "2022-06-22 08:29",
+      howMany: 2,
+      lat: 53.6967238,
+      lng: -1.8107593,
+      obsValid: true,
+      obsReviewed: false,
+      locationPrivate: false,
+      subId: "S113506184",
+    },
+    {
+      speciesCode: "mallar3",
+      comName: "Mallard",
+      sciName: "Anas platyrhynchos",
+      locId: "L2578311",
+      locName: "Cromwell Bottom NR",
+      obsDt: "2022-06-22 08:29",
+      howMany: 7,
+      lat: 53.6967238,
+      lng: -1.8107593,
+      obsValid: true,
+      obsReviewed: false,
+      locationPrivate: false,
+      subId: "S113506184",
+    },
+    {
+      speciesCode: "cowpig1",
+      comName: "Common Wood-Pigeon",
+      sciName: "Columba palumbus",
+      locId: "L2578311",
+      locName: "Cromwell Bottom NR",
+      obsDt: "2022-06-22 08:29",
+      howMany: 1,
+      lat: 53.6967238,
+      lng: -1.8107593,
+      obsValid: true,
+      obsReviewed: false,
+      locationPrivate: false,
+      subId: "S113506184",
+    },
+    {
+      speciesCode: "eurmag1",
+      comName: "Eurasian Magpie",
+      sciName: "Pica pica",
+      locId: "L2578311",
+      locName: "Cromwell Bottom NR",
+      obsDt: "2022-06-22 08:29",
+      howMany: 1,
+      lat: 53.6967238,
+      lng: -1.8107593,
+      obsValid: true,
+      obsReviewed: false,
+      locationPrivate: false,
+      subId: "S113506184",
+    },
+    {
+      speciesCode: "eurcoo",
+      comName: "Eurasian Coot",
+      sciName: "Fulica atra",
+      locId: "L2578311",
+      locName: "Cromwell Bottom NR",
+      obsDt: "2022-06-22 08:29",
+      howMany: 1,
+      lat: 53.6967238,
+      lng: -1.8107593,
+      obsValid: true,
+      obsReviewed: false,
+      locationPrivate: false,
+      subId: "S113506184",
+    },
+    {
+      speciesCode: "winwre4",
+      comName: "Eurasian Wren",
+      sciName: "Troglodytes troglodytes",
+      locId: "L2578311",
+      locName: "Cromwell Bottom NR",
+      obsDt: "2022-06-22 08:29",
+      howMany: 1,
+      lat: 53.6967238,
+      lng: -1.8107593,
+      obsValid: true,
+      obsReviewed: false,
+      locationPrivate: false,
+      subId: "S113506184",
+    },
+    {
+      speciesCode: "gretit1",
+      comName: "Great Tit",
+      sciName: "Parus major",
+      locId: "L2578311",
+      locName: "Cromwell Bottom NR",
+      obsDt: "2022-06-22 08:29",
+      howMany: 2,
+      lat: 53.6967238,
+      lng: -1.8107593,
+      obsValid: true,
+      obsReviewed: false,
+      locationPrivate: false,
+      subId: "S113506184",
+    },
+    {
+      speciesCode: "eurbla",
+      comName: "Eurasian Blackbird",
+      sciName: "Turdus merula",
+      locId: "L2578311",
+      locName: "Cromwell Bottom NR",
+      obsDt: "2022-06-22 08:29",
+      howMany: 2,
+      lat: 53.6967238,
+      lng: -1.8107593,
+      obsValid: true,
+      obsReviewed: false,
+      locationPrivate: false,
+      subId: "S113506184",
+    },
+    {
+      speciesCode: "lottit1",
+      comName: "Long-tailed Tit",
+      sciName: "Aegithalos caudatus",
+      locId: "L2578311",
+      locName: "Cromwell Bottom NR",
+      obsDt: "2022-06-22 08:29",
+      howMany: 2,
+      lat: 53.6967238,
+      lng: -1.8107593,
+      obsValid: true,
+      obsReviewed: false,
+      locationPrivate: false,
+      subId: "S113506184",
+    },
+    {
+      speciesCode: "carcro1",
+      comName: "Carrion Crow",
+      sciName: "Corvus corone",
+      locId: "L2578311",
+      locName: "Cromwell Bottom NR",
+      obsDt: "2022-06-22 08:29",
+      howMany: 2,
+      lat: 53.6967238,
+      lng: -1.8107593,
+      obsValid: true,
+      obsReviewed: false,
+      locationPrivate: false,
+      subId: "S113506184",
+    },
+    {
+      speciesCode: "sonthr1",
+      comName: "Song Thrush",
+      sciName: "Turdus philomelos",
+      locId: "L12907860",
+      locName: "Home",
+      obsDt: "2022-06-22 06:00",
+      howMany: 1,
+      lat: 53.6069079,
+      lng: -1.3698524,
+      obsValid: true,
+      obsReviewed: false,
+      locationPrivate: true,
+      subId: "S113505510",
+    },
+    {
+      speciesCode: "blutit",
+      comName: "Eurasian Blue Tit",
+      sciName: "Cyanistes caeruleus",
+      locId: "L12907860",
+      locName: "Home",
+      obsDt: "2022-06-22 06:00",
+      howMany: 1,
+      lat: 53.6069079,
+      lng: -1.3698524,
+      obsValid: true,
+      obsReviewed: false,
+      locationPrivate: true,
+      subId: "S113505510",
+    },
+    {
+      speciesCode: "eurgol",
+      comName: "European Goldfinch",
+      sciName: "Carduelis carduelis",
+      locId: "L12907860",
+      locName: "Home",
+      obsDt: "2022-06-22 06:00",
+      howMany: 1,
+      lat: 53.6069079,
+      lng: -1.3698524,
+      obsValid: true,
+      obsReviewed: false,
+      locationPrivate: true,
+      subId: "S113505510",
+    },
+    {
+      speciesCode: "eurgre1",
+      comName: "European Greenfinch",
+      sciName: "Chloris chloris",
+      locId: "L12907860",
+      locName: "Home",
+      obsDt: "2022-06-22 06:00",
+      howMany: 2,
+      lat: 53.6069079,
+      lng: -1.3698524,
+      obsValid: true,
+      obsReviewed: false,
+      locationPrivate: true,
+      subId: "S113505510",
+    },
+    {
+      speciesCode: "houspa",
+      comName: "House Sparrow",
+      sciName: "Passer domesticus",
+      locId: "L12907860",
+      locName: "Home",
+      obsDt: "2022-06-22 06:00",
+      howMany: 9,
+      lat: 53.6069079,
+      lng: -1.3698524,
+      obsValid: true,
+      obsReviewed: false,
+      locationPrivate: true,
+      subId: "S113505510",
+    },
+    {
+      speciesCode: "wlwwar",
+      comName: "Willow Warbler",
+      sciName: "Phylloscopus trochilus",
+      locId: "L8880299",
+      locName: "Soil Hill",
+      obsDt: "2022-06-22 05:48",
+      howMany: 5,
+      lat: 53.7789369,
+      lng: -1.8855123,
+      obsValid: true,
+      obsReviewed: false,
+      locationPrivate: false,
+      subId: "S113505026",
+    },
+    {
+      speciesCode: "commoo3",
+      comName: "Eurasian Moorhen",
+      sciName: "Gallinula chloropus",
+      locId: "L8880299",
+      locName: "Soil Hill",
+      obsDt: "2022-06-22 05:48",
+      howMany: 2,
+      lat: 53.7789369,
+      lng: -1.8855123,
+      obsValid: true,
+      obsReviewed: false,
+      locationPrivate: false,
+      subId: "S113505026",
+    },
+    {
+      speciesCode: "rinphe",
+      comName: "Ring-necked Pheasant",
+      sciName: "Phasianus colchicus",
+      locId: "L8880299",
+      locName: "Soil Hill",
+      obsDt: "2022-06-22 05:48",
+      howMany: 4,
+      lat: 53.7789369,
+      lng: -1.8855123,
+      obsValid: true,
+      obsReviewed: false,
+      locationPrivate: false,
+      subId: "S113505026",
+    },
+    {
+      speciesCode: "cangoo",
+      comName: "Canada Goose",
+      sciName: "Branta canadensis",
+      locId: "L8880299",
+      locName: "Soil Hill",
+      obsDt: "2022-06-22 05:48",
+      howMany: 13,
+      lat: 53.7789369,
+      lng: -1.8855123,
+      obsValid: true,
+      obsReviewed: false,
+      locationPrivate: false,
+      subId: "S113505026",
+    },
+    {
+      speciesCode: "whiwag",
+      comName: "White Wagtail",
+      sciName: "Motacilla alba",
+      locId: "L8880299",
+      locName: "Soil Hill",
+      obsDt: "2022-06-22 05:48",
+      howMany: 2,
+      lat: 53.7789369,
+      lng: -1.8855123,
+      obsValid: true,
+      obsReviewed: false,
+      locationPrivate: false,
+      subId: "S113505026",
+    },
+    {
+      speciesCode: "lbbgul",
+      comName: "Lesser Black-backed Gull",
+      sciName: "Larus fuscus",
+      locId: "L8880299",
+      locName: "Soil Hill",
+      obsDt: "2022-06-22 05:48",
+      howMany: 5,
+      lat: 53.7789369,
+      lng: -1.8855123,
+      obsValid: true,
+      obsReviewed: false,
+      locationPrivate: false,
+      subId: "S113505026",
+    },
+    {
+      speciesCode: "eurcur",
+      comName: "Eurasian Curlew",
+      sciName: "Numenius arquata",
+      locId: "L8880299",
+      locName: "Soil Hill",
+      obsDt: "2022-06-22 05:48",
+      howMany: 1,
+      lat: 53.7789369,
+      lng: -1.8855123,
+      obsValid: true,
+      obsReviewed: false,
+      locationPrivate: false,
+      subId: "S113505026",
+    },
+    {
+      speciesCode: "grewhi1",
+      comName: "Greater Whitethroat",
+      sciName: "Curruca communis",
+      locId: "L8880299",
+      locName: "Soil Hill",
+      obsDt: "2022-06-22 05:48",
+      howMany: 7,
+      lat: 53.7789369,
+      lng: -1.8855123,
+      obsValid: true,
+      obsReviewed: false,
+      locationPrivate: false,
+      subId: "S113505026",
+    },
+    {
+      speciesCode: "eurjac",
+      comName: "Eurasian Jackdaw",
+      sciName: "Corvus monedula",
+      locId: "L8880299",
+      locName: "Soil Hill",
+      obsDt: "2022-06-22 05:48",
+      howMany: 5,
+      lat: 53.7789369,
+      lng: -1.8855123,
+      obsValid: true,
+      obsReviewed: false,
+      locationPrivate: false,
+      subId: "S113505026",
+    },
+  ]);
   const styles = StyleSheet.create({
     localFeed: {
       borderColor: "black",
@@ -85,27 +392,19 @@ export default function Homefeed() {
       backgroundColor: "royalblue",
     },
   });
-
-  if (isLoading)
-    return (
-      <View>
-        <Text>Loading data, please wait...</Text>
-      </View>
-    );
-
   return (
     <>
       <NavBar></NavBar>
       <Text style={{ padding: 10 }}>Sightings Summary</Text>
       <ScrollView style={styles.localFeed} nestedScrollEnabled={true}>
         <View>
-          {birds.map((bird, index) => {
+          {birds.map((bird) => {
             return (
               <>
                 <View style={styles.listItem}>
                   <Image
                     source={{
-                      uri: imgUrls[index],
+                      uri: "https://images.pexels.com/photos/70069/pexels-photo-70069.jpeg",
                     }}
                     style={{ width: "50px", height: "50px", padding: 2.5 }}
                   ></Image>
