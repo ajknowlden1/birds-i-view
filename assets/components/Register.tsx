@@ -1,7 +1,7 @@
 import {createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import {auth} from './firebase/config'
 import React, {useState} from "react"
-import {View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Dimensions, ScrollView, FlatList, Alert} from "react-native"
+import {View, Text, StyleSheet, TextInput, TouchableOpacity, Alert} from "react-native"
 
 export default function Register({navigation}: {navigation: any}){
     const [email, setEmail] = React.useState('');
@@ -19,8 +19,7 @@ export default function Register({navigation}: {navigation: any}){
                 updateProfile(userCredential.user, {
                     displayName: username
                   }).then(() =>{
-                    alert("Account created")
-                    navigation.navigate('Homefeed')
+                    Alert.alert("Account created! Enjoy the birds!")
                   })            
             })
             .catch((error) => {
