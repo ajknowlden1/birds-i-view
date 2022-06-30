@@ -1,6 +1,6 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 
-export const NavBar = () => {
+export const NavBar = ({navigation}: {navigation: any}) => {
   const styles = StyleSheet.create({
     navBar: {
       flex: 0.125,
@@ -17,11 +17,16 @@ export const NavBar = () => {
       paddingRight: 20,
     },
   });
+
+  function userProfileNav() {
+    navigation.navigate('UserProfile');
+  }
+
   return (
-    <View style={styles.navBar}>
+    <View style={styles.navBar} >
       <Text style={styles.navItem}>Home</Text>
       <Text style={styles.navItem}>Map</Text>
-      <Text style={styles.navItem}>Account</Text>
+      <TouchableOpacity style={styles.navItem} onPress={userProfileNav}><Text>Account</Text></TouchableOpacity>
     </View>
   );
 };
