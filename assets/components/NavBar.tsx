@@ -22,10 +22,14 @@ export const NavBar = ({navigation}: {navigation: any}) => {
     navigation.navigate('UserProfile');
   }
 
+  function mapNav(){
+    navigation.navigate('Map')
+  }
+
   return (
     <View style={styles.navBar} >
       <Text style={styles.navItem}>Home</Text>
-      <Text style={styles.navItem}>Map</Text>
+      <TouchableOpacity style={styles.navItem} onPress={mapNav}><Text>Map</Text></TouchableOpacity>
       <TouchableOpacity style={styles.navItem} onPress={userProfileNav}><Text>Account</Text></TouchableOpacity>
     </View>
   );
