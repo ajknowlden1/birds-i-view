@@ -1,3 +1,4 @@
+
 {
   "expo": {
     "name": "birdsIView",
@@ -16,7 +17,11 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.example.ProjectName",
+      "config": {
+        "googleMapsApiKey": "API KEY"
+      }
     },
     "android": {
       "adaptiveIcon": {

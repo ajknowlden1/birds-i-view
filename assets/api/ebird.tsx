@@ -1,5 +1,5 @@
 import axios from "axios";
-import { apiKeys } from './keys'
+import { apiKeys } from "../../secretKeys"
 
 const eBirdApi = axios.create({
   baseURL: "https://api.ebird.org/v2/",

@@ -12,4 +12,3 @@ web-build/
 secretKeys.js
 # macOS
 .DS_Store
-assets/api/keys.tsx
