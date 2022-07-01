@@ -13,9 +13,6 @@ export default function Map({route}){
     const [lng, setLng] = useState(0);
     const [positioned, setPositioned] = useState(false);
     
-    // Location.requestForegroundPermissionsAsync();
-    //let position = Location.getCurrentPositionAsync;
-
     interface IPoints {
         latitude: number;
         longitude: number;
@@ -27,8 +24,8 @@ export default function Map({route}){
     useEffect(() => {
         getLocationByPostCode(postcode)
             .then((res) => {
-                setLat(Math.trunc(res.data.data.latitude));
-                setLng(Math.trunc(res.data.data.longitude));
+                setLat(res.data.data.latitude);
+                setLng(res.data.data.longitude);
                 setPositioned(true)
                 getBirdsByLocation(lat, lng)
                 .then((res: any) => {
@@ -52,10 +49,10 @@ export default function Map({route}){
                 <MapView
                     style={styles.map}
                     initialRegion={{
-                        latitude:lat,
-                        longitude:lng,
-                        latitudeDelta: 0.5,
-                        longitudeDelta: 0.5,
+                        latitude:parseFloat(lat),
+                        longitude:parseFloat(lng),
+                        latitudeDelta: 0.3,
+                        longitudeDelta: 0.3,
                     }}
                     showsUserLocation={true}
                     provider={PROVIDER_GOOGLE}
@@ -63,7 +60,7 @@ export default function Map({route}){
                 <Heatmap
                     points={points}
                     opacity={4}
-                    radius={100}
+                    radius={50}
                     gradient={
                         {colors: ['red', 'blue'],
                          startPoints: [0.1, 0.7],
@@ -75,7 +72,11 @@ export default function Map({route}){
             </View>
         )
     } else {
-        return null
+        return (
+            <View>
+                <Text style={styles.text}>Please Enter A Valid Postcode</Text>
+            </View>
+        )
     } 
 }
 

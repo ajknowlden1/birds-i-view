@@ -11,8 +11,9 @@ export const PostcodeLookup = (props: any) => {
   const handleSubmitPostcode = () => {
     getLocationByPostCode(props.postcode)
       .then((res) => {
-        setLat(Math.trunc(res.data.data.latitude));
-        setLng(Math.trunc(res.data.data.longitude));
+
+        setLat(parseFloat(parseFloat(res.data.data.latitude).toFixed(2)));
+        setLng(parseFloat(parseFloat(res.data.data.longitude).toFixed(2)));
       })
       .catch((err) => {
         alert("Please enter a valid postcode");
