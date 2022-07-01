@@ -21,6 +21,7 @@
       "bundleIdentifier": "com.example.ProjectName",
       "config": {
         "googleMapsApiKey": "GOOGLE MAPS API KEY"
+
       }
     },
     "android": {
