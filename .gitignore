@@ -12,3 +12,4 @@ web-build/
 secretKeys.js
 # macOS
 .DS_Store
+app.json
