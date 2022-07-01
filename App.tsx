@@ -1,5 +1,3 @@
-
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text } from 'react-native';
 import { auth } from './assets/components/firebase/config'
 import React, { useState } from "react";

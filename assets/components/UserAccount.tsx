@@ -1,5 +1,5 @@
 import { auth } from "./firebase/config";
-import { updateEmail, updateProfile } from "firebase/auth";
+import { updateEmail, updateProfile, updatePassword } from "firebase/auth";
 import {
   Alert,
   View,
@@ -18,6 +18,8 @@ export default function UserAccount() {
   const [loading, setLoading] = useState(true);
   const [createdAt, setCreatedAt] = useState("");
   const [modalVisible, setModalVisibile] = useState(false);
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   useEffect(() => {
     setUser(auth.currentUser);
@@ -65,6 +67,24 @@ export default function UserAccount() {
       });
   }
 
+  function updatePass(){
+    if (password !== confirmPassword){
+        Alert.alert("Passwords don't match")
+        return;
+    }
+    updatePassword(user, password).then(() => {
+        Alert.alert("Password updated");
+        setPassword("");
+        setConfirmPassword("");
+    }).catch((error) => {
+        if (error.code === "auth/requires-recent-login") {
+            setModalVisibile(true);
+        } else {
+            alert(error);
+        }
+    })
+  }
+
   if (loading) {
     return <Text>Loading...</Text>;
   }
@@ -81,9 +101,9 @@ export default function UserAccount() {
           onChangeText={setUpdatedUsername}
           value={updatedUsername}
         ></TextInput>
-        <TouchableOpacity style={styles.updateBtn} onPress={updateUserUsername}>
+        { updatedUsername !== "" ? <TouchableOpacity style={styles.updateBtn} onPress={updateUserUsername}> 
           <Text>Update</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> : null}
       </View>
       <Text style={styles.text}>Registered email:</Text>
       <View style={{ flexDirection: "row" }}>
@@ -93,12 +113,28 @@ export default function UserAccount() {
           onChangeText={setUpdatedEmail}
           value={updatedEmail}
         ></TextInput>
-        <TouchableOpacity style={styles.updateBtn} onPress={updateUserEmail}>
+        {updatedEmail !== "" ? <TouchableOpacity style={styles.updateBtn} onPress={updateUserEmail}>
           <Text>Update</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> : null}
       </View>
       <Text style={styles.text}>Member Since {createdAt}</Text>
-    </View>
+      <Text style={styles.text}>Update Password</Text>
+        <TextInput 
+            style={styles.password} 
+            autoCapitalize='none' 
+            secureTextEntry={true} 
+            placeholder="Password" 
+            onChangeText={setPassword}>
+        </TextInput>
+        <TextInput 
+            style={styles.password} 
+            autoCapitalize='none' 
+            secureTextEntry={true} 
+            placeholder="Confirm Password" 
+            onChangeText={setConfirmPassword}>
+        </TextInput>
+        {password !== "" ? <TouchableOpacity style={styles.updateBtn} onPress={updatePass}><Text>Update</Text></TouchableOpacity> : null}
+</View>
   );
 }
 
@@ -130,4 +166,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignSelf: "flex-end",
   },
+  password: {
+    fontSize: 17,
+    marginLeft: 30,
+    textAlign: "left",
+  }
 });
