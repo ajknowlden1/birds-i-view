@@ -73,9 +73,9 @@ export default function UserAccount() {
         return;
     }
     updatePassword(user, password).then(() => {
-        Alert.alert("Password updated");
         setPassword("");
         setConfirmPassword("");
+        Alert.alert("Password updated");     
     }).catch((error) => {
         if (error.code === "auth/requires-recent-login") {
             setModalVisibile(true);
@@ -124,6 +124,7 @@ export default function UserAccount() {
             autoCapitalize='none' 
             secureTextEntry={true} 
             placeholder="Password" 
+            value={password}
             onChangeText={setPassword}>
         </TextInput>
         <TextInput 
@@ -131,6 +132,7 @@ export default function UserAccount() {
             autoCapitalize='none' 
             secureTextEntry={true} 
             placeholder="Confirm Password" 
+            value={confirmPassword}
             onChangeText={setConfirmPassword}>
         </TextInput>
         {password !== "" ? <TouchableOpacity style={styles.updateBtn} onPress={updatePass}><Text>Update</Text></TouchableOpacity> : null}
