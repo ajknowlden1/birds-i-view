@@ -1,7 +1,8 @@
 import { auth } from './firebase/config'
-import { updateEmail, updateProfile  } from 'firebase/auth';
-import { Alert, View, Text, StyleSheet, TextInput, TouchableOpacity } from "react-native"
+import { updateEmail, updateProfile, reauthenticateWithCredential , EmailAuthProvider, signInWithPopup } from 'firebase/auth';
+import { Alert, View, Text, StyleSheet, TextInput, TouchableOpacity, Modal } from "react-native"
 import { useState, useEffect } from "react"
+import LoginModal from "./LoginModal"
 
 export default function UserAccount(){
     interface userConfig {
@@ -18,7 +19,7 @@ export default function UserAccount(){
     const [updatedUsername, setUpdatedUsername] = useState('');
     const [loading, setLoading] = useState(true);
     const [createdAt , setCreatedAt] = useState('');
-
+    const [modalVisible, setModalVisibile] = useState(false);
 
     useEffect(() =>{
         setUser(auth.currentUser)
@@ -40,6 +41,8 @@ export default function UserAccount(){
                 Alert.alert("Invalid email")
             } else if (error.code === "auth/email-already-in-use") {
                 Alert.alert("Email already in use")
+            } else if (error.code === "auth/requires-recent-login") {
+                setModalVisibile(true)
             } else {
                 alert(error)
             }
@@ -63,6 +66,7 @@ export default function UserAccount(){
 
     return (
         <View>
+            { modalVisible ? <LoginModal /> : null }
             <Text style={styles.title}>Account Details</Text>
             <Text style={styles.text}>Username:</Text>
             <View style={{flexDirection: "row"}}>
