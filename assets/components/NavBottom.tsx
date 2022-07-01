@@ -1,3 +1,4 @@
+import {useState, useEffect} from "react"
 import { StyleSheet, Text, View } from "react-native";
 import { PostcodeLookup } from "./PostcodeLookup";
 
@@ -26,7 +27,7 @@ export const NavBottom = (props: any) => {
     <>
       <View style={styles.navBar}>
         <Text style={styles.navItem}>Lookup Bird</Text>
-        <PostcodeLookup setBirds={props.setBirds}></PostcodeLookup>
+        <PostcodeLookup setBirds={props.setBirds} postcode={props.postcode} setPostcode={props.setPostcode}></PostcodeLookup>
         <Text style={styles.navItem}>Submit Sighting</Text>
       </View>
     </>

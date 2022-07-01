@@ -2,36 +2,49 @@ import { useState, useEffect } from "react";
 import {View, StyleSheet, Text, Dimensions} from "react-native" 
 import MapView, {PROVIDER_GOOGLE, Heatmap} from 'react-native-maps';
 import { getBirdsByLocation } from "../api/ebird";
+import { getLocationByPostCode } from "../api/postcodeConverter";
 import * as Location from "expo-location";
 
-export default function Map(){
+export default function Map({route}){
+    const [points, setPoints] = useState<IPoints[]|[]>([]);
+    const {postcode} = route.params
+
+    const [lat, setLat] = useState(0);
+    const [lng, setLng] = useState(0);
+    const [positioned, setPositioned] = useState(false);
     
+    // Location.requestForegroundPermissionsAsync();
+    //let position = Location.getCurrentPositionAsync;
 
-    // function getPosition(){
-    //     Location.requestForegroundPermissionsAsync();
-    //     let position = Location.getCurrentPositionAsync;
-    //     return position
-    // }
+    interface IPoints {
+        latitude: number;
+        longitude: number;
+        weight: number
+    }
 
-    // useEffect(() => {
-    //     getPosition()
-    //     .then((res:any) => {
-    //         console.debug(res)
-    //     })
-    // })
+    const arr=[];
 
-    let points = 
-        [{latitude:53.6908, longitude:-1.8191, weight:10},
-         {latitude:53.6968, longitude:-1.8191, weight:10},
-         {latitude:53.6968, longitude:-1.8191, weight:10},
-         {latitude:53.6968, longitude:-1.5491, weight:10},
-         {latitude:53.8008, longitude:-1.5491, weight:10},
-         {latitude:53.8008, longitude:-1.5491, weight:10},
-         {latitude:53.8008, longitude:-1.8107593, weight:10},
-         {latitude:53.8008, longitude:-1.3698524, weight:10},
-         {latitude:53.8008, longitude:-1.8855123, weight:10},
-         {latitude:53.8008, longitude:-1.5491, weight:10}]
-    return (
+    useEffect(() => {
+        getLocationByPostCode(postcode)
+            .then((res) => {
+                setLat(Math.trunc(res.data.data.latitude));
+                setLng(Math.trunc(res.data.data.longitude));
+                setPositioned(true)
+                getBirdsByLocation(lat, lng)
+                .then((res: any) => {
+                    res.data.forEach((bird) => {
+                        const {lat, lng, howMany} = bird
+                        arr.push({latitude: lat, longitude: lng, weight: howMany})
+                    })
+                    setPoints(arr)
+                })
+            })
+            .catch((err) => {
+            })
+    }, [lat, lng, positioned]);
+
+    if(positioned){
+        return (
             <View
             style={styles.container}
             >
@@ -39,23 +52,31 @@ export default function Map(){
                 <MapView
                     style={styles.map}
                     initialRegion={{
-                        latitude:53.8008,
-                        longitude:-1.5491,
-                        latitudeDelta: 0.75,
-                        longitudeDelta: 0.75,
+                        latitude:lat,
+                        longitude:lng,
+                        latitudeDelta: 0.5,
+                        longitudeDelta: 0.5,
                     }}
                     showsUserLocation={true}
                     provider={PROVIDER_GOOGLE}
                     >
                 <Heatmap
                     points={points}
-                    opacity={3}
-                    radius={45}
+                    opacity={4}
+                    radius={100}
+                    gradient={
+                        {colors: ['red', 'blue'],
+                         startPoints: [0.1, 0.7],
+                         colorMapSize: 128}}
+
                     />
 
                 </MapView>
             </View>
-    )
+        )
+    } else {
+        return null
+    } 
 }
 
 const styles = StyleSheet.create({
