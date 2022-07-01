@@ -1,4 +1,4 @@
-import {signInWithEmailAndPassword } from "firebase/auth";
+import {signInWithEmailAndPassword} from "firebase/auth";
 import {auth} from './firebase/config'
 import React, {useState} from "react"
 import {View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Dimensions, ScrollView, FlatList, Alert} from "react-native"
@@ -12,7 +12,6 @@ export default function Login({navigation}: {navigation: any}) {
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 setLoggedIn(true)
-                navigation.navigate('Homefeed')
             })
             .catch((error) => {
                 alert(error)
@@ -25,11 +24,8 @@ export default function Login({navigation}: {navigation: any}) {
     }
     
     return (
-        <View
-            style={styles.container}
-        >
+        <View style={styles.container}>
             <Text style={styles.text}>Login</Text>
-
             <TextInput
                 autoCapitalize='none'
                 style={styles.text} placeholder='email'

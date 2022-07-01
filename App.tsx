@@ -1,28 +1,50 @@
 
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import React, { useState, useEffect } from "react";
+import { StyleSheet, Text } from 'react-native';
+import { auth } from './assets/components/firebase/config'
+import React, { useState } from "react";
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import {Login, Homefeed, Register, UserAccount, UserProfile} from "./assets/components/"
 
 const Stack = createStackNavigator();
 
+
 export default function App(){ 
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  
+  auth.onAuthStateChanged((user) => {
+    setUser(user);
+    setLoading(false);
+  });
+
+  if (loading){
+    return <Text>Hello</Text>;
+  }
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-          <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="Homefeed" component={Homefeed} />
-          <Stack.Screen name="Register" component={Register} />
-          <Stack.Screen name="UserProfile" component={UserProfile} />
-          <Stack.Screen name="UserAccount" component={UserAccount} />
-
-      </Stack.Navigator>
-    </NavigationContainer>
+    <SafeAreaView style={{flex: 1, backgroundColor: "transparent"}}>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{headerShown: false}}>
+          { user ? (
+            <>
+              <Stack.Screen name="Homefeed" component={Homefeed} />
+              <Stack.Screen name="UserProfile" component={UserProfile} />
+              <Stack.Screen name="UserAccount" component={UserAccount} /> 
+            </>
+            ) : ( 
+            <>
+              <Stack.Screen name="Login" component={Login} />
+              <Stack.Screen name="Register" component={Register} />
+            </>
+            )}
+        </Stack.Navigator>
+      </NavigationContainer>
+    </SafeAreaView>
   );
-}11
+}
 
 const styles = StyleSheet.create({
   container: {

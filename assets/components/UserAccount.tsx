@@ -1,8 +1,7 @@
 import { auth } from './firebase/config'
 import { updateEmail, updateProfile  } from 'firebase/auth';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from "react-native"
+import { Alert, View, Text, StyleSheet, TextInput, TouchableOpacity } from "react-native"
 import { useState, useEffect } from "react"
-import dayjs from "dayjs"
 
 export default function UserAccount(){
     interface userConfig {
@@ -34,8 +33,16 @@ export default function UserAccount(){
 
     function updateUserEmail(){
         updateEmail(auth.currentUser, updatedEmail).then(() => {
-            alert("Email updated")
+            Alert.alert("Email updated")
             setUpdatedEmail("")
+        }).catch((error) => {
+            if (error.code === "auth/invalid-email"){
+                Alert.alert("Invalid email")
+            } else if (error.code === "auth/email-already-in-use") {
+                Alert.alert("Email already in use")
+            } else {
+                alert(error)
+            }
         })
     }
 
@@ -43,8 +50,10 @@ export default function UserAccount(){
         updateProfile(auth.currentUser, {
             displayName: updatedUsername
         }).then(() => {
-            alert("Username updated")
+            Alert.alert("Username updated")
             setUpdatedUsername("")
+        }).catch((error) => {
+            alert(error)
         })
     }
 
@@ -61,8 +70,7 @@ export default function UserAccount(){
                     style={styles.textInfo} 
                     placeholder={user.displayName}
                     onChangeText={setUpdatedUsername}
-                    value={updatedUsername} 
-                   >
+                    value={updatedUsername}>
                 </TextInput>
                 <TouchableOpacity 
                     style={styles.updateBtn} 
