@@ -27,12 +27,12 @@ export default function Map({route}){
             .then((res) => {
                 setLat(res.data.data.latitude);
                 setLng(res.data.data.longitude);
-                setPositioned(true)
                 getBirdsByLocation(lat, lng)
                 .then((res: any) => {
                     res.data.forEach((bird) => {
                         const {lat, lng, howMany} = bird
                         arr.push({latitude: lat, longitude: lng, weight: howMany})
+                        setPositioned(true)
                     })
                     setPoints(arr)
                 })
@@ -41,7 +41,7 @@ export default function Map({route}){
             })
     }, [lat, lng, positioned]);
 
-    if(positioned){
+    if(positioned && points.length > 0){
         return (
             <View
             style={styles.container}
