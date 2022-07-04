@@ -12,7 +12,8 @@ export default function Map({route}){
     const [lat, setLat] = useState(0);
     const [lng, setLng] = useState(0);
     const [positioned, setPositioned] = useState(false);
-    
+    const [loading, setLoading] = useState(true);
+
     interface IPoints {
         latitude: number;
         longitude: number;
@@ -47,6 +48,7 @@ export default function Map({route}){
             >
                 <Text style={styles.text}>Sightings Nearby</Text>
                 <MapView
+                    loadingEnabled
                     style={styles.map}
                     initialRegion={{
                         latitude:parseFloat(lat),
@@ -54,12 +56,11 @@ export default function Map({route}){
                         latitudeDelta: 0.3,
                         longitudeDelta: 0.3,
                     }}
-                    showsUserLocation={true}
                     provider={PROVIDER_GOOGLE}
                     >
                 <Heatmap
                     points={points}
-                    opacity={4}
+                    opacity={1}
                     radius={50}
                     gradient={
                         {colors: ['red', 'blue'],

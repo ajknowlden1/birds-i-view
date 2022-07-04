@@ -7,8 +7,6 @@ const eBirdApi = axios.create({
 });
 
 export const getBirdsByLocation = (lat: number, lng: number) => {
-  console.log(lat, lng)
-
   return eBirdApi
     .get("data/obs/geo/recent?", { params: { lat, lng } })
     .then((res) => {
