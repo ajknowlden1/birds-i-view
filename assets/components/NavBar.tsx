@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 
-export const NavBar = ({navigation}: {navigation: any}) => {
+export const NavBar = (props: any) => {
   const styles = StyleSheet.create({
     navBar: {
       flex: 0.125,
@@ -19,13 +19,18 @@ export const NavBar = ({navigation}: {navigation: any}) => {
   });
 
   function userProfileNav() {
-    navigation.navigate('UserProfile');
+    props.navigation.navigate('UserProfile');
+  }
+
+  function mapNav(){
+
+    props.navigation.navigate('Map', {postcode: props.postcode})
   }
 
   return (
     <View style={styles.navBar} >
       <Text style={styles.navItem}>Home</Text>
-      <Text style={styles.navItem}>Map</Text>
+      <TouchableOpacity onPress={mapNav}><Text style={styles.navItem}>Map</Text></TouchableOpacity>
       <TouchableOpacity onPress={userProfileNav}><Text style={styles.navItem}>Account</Text></TouchableOpacity>
     </View>
   );
