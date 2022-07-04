@@ -1,3 +1,5 @@
+import { auth } from './firebase/config'
+import { signOut } from "firebase/auth"
 import { View, Text, StyleSheet,TouchableOpacity } from "react-native"
 
 export default function UserAccount({navigation}: {navigation: any}){
@@ -5,6 +7,14 @@ export default function UserAccount({navigation}: {navigation: any}){
     function userAccountNav() {
         navigation.navigate('UserAccount');
       }
+    
+    function logOut(){
+        signOut(auth).then(() => {
+            navigation.navigate('Login')
+        }).catch((error) => {
+            alert(error)
+        })
+    }
 
     return (
         <View>
@@ -12,7 +22,7 @@ export default function UserAccount({navigation}: {navigation: any}){
             <Text style={styles.text}>My Sightings</Text>
             <Text style={styles.text}>Wishlist of Birds</Text>
             <Text style={styles.text}>Badges</Text>
-            <Text style={styles.text}>Log out</Text>
+            <TouchableOpacity><Text style={styles.text} onPress={logOut}>Log out</Text></TouchableOpacity>
         </View>
     ) 
 }

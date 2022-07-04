@@ -379,8 +379,7 @@ export default function Homefeed(props : any) {
       borderStyle: "solid",
       backgroundColor: "darkblue",
       marginBottom: 2.5,
-      height: 50,
-
+      height: 400,
       marginLeft: 20,
       marginRight: 20,
     },
@@ -395,6 +394,7 @@ export default function Homefeed(props : any) {
       paddingLeft: 2.5,
       paddingRight: 2.5,
       backgroundColor: "royalblue",
+      padding: 1,
     },
   });
 

@@ -8,13 +8,13 @@ export const NavBar = (props: any) => {
       marginLeft: "auto",
       marginRight: "auto",
       marginTop: 2.5,
-
-      height: 2.5,
       justifyContent: "center",
+      
     },
     navItem: {
       paddingLeft: 20,
       paddingRight: 20,
+      fontSize: 20,
     },
   });
 
@@ -31,7 +31,7 @@ export const NavBar = (props: any) => {
     <View style={styles.navBar} >
       <Text style={styles.navItem}>Home</Text>
       <TouchableOpacity style={styles.navItem} onPress={mapNav}><Text>Map</Text></TouchableOpacity>
-      <TouchableOpacity style={styles.navItem} onPress={userProfileNav}><Text>Account</Text></TouchableOpacity>
+      <TouchableOpacity onPress={userProfileNav}><Text style={styles.navItem}>Account</Text></TouchableOpacity>
     </View>
   );
 };
