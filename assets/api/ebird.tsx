@@ -16,7 +16,6 @@ export const getBirdsByLocation = (lat: number, lng: number) => {
 
 export const getBirdByCommonName = (speciesCode: string) => {
   return eBirdApi.get(`data/obs/GB/recent/${speciesCode}`).then((res) => {
-    console.log(res);
     return res;
   });
 };
