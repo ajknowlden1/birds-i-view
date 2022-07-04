@@ -10,5 +10,7 @@ npm-debug.*
 *.orig.*
 web-build/
 secretKeys.js
+app.json
 # macOS
 .DS_Store
+

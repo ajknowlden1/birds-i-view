@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import {Login, Homefeed, Register, UserAccount, UserProfile} from "./assets/components/"
+import {Login, Homefeed, Register, UserAccount, UserProfile, Map} from "./assets/components/"
 
 const Stack = createStackNavigator();
 
@@ -18,9 +18,11 @@ export default function App(){
     setLoading(false);
   });
 
+
   if (loading){
     return <Text>Hello</Text>;
   }
+
 
   return (
     <SafeAreaProvider>
