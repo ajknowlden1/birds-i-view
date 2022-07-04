@@ -13,3 +13,10 @@ export const getBirdsByLocation = (lat: number, lng: number) => {
       return res;
     });
 };
+
+export const getBirdByCommonName = (speciesCode: string) => {
+  return eBirdApi.get(`data/obs/GB/recent/${speciesCode}`).then((res) => {
+    console.log(res);
+    return res;
+  });
+};
