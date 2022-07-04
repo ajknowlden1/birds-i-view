@@ -368,32 +368,6 @@ export default function Homefeed({navigation}: {navigation: any}) {
     },
   ]);
 
-  const styles = StyleSheet.create({
-    localFeed: {
-      borderColor: "black",
-      borderWidth: 2,
-      borderStyle: "solid",
-      backgroundColor: "darkblue",
-      marginBottom: 2.5,
-      height: 400,
-      marginLeft: 20,
-      marginRight: 20,
-    },
-    listItem: {
-      flex: 1,
-      flexDirection: "row",
-      marginTop: 2.5,
-      marginBottom: 2.5,
-      borderColor: "black",
-      borderWidth: 1,
-      borderStyle: "solid",
-      paddingLeft: 2.5,
-      paddingRight: 2.5,
-      backgroundColor: "royalblue",
-      padding: 1,
-    },
-  });
-
   return (
     <>
       <NavBar navigation={navigation}></NavBar>
@@ -421,7 +395,33 @@ export default function Homefeed({navigation}: {navigation: any}) {
           })}
         </View>
       </ScrollView>
-      <NavBottom setBirds={setBirds}></NavBottom>
+      <NavBottom setBirds={setBirds} navigation={navigation}></NavBottom>
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  localFeed: {
+    borderColor: "black",
+    borderWidth: 2,
+    borderStyle: "solid",
+    backgroundColor: "darkblue",
+    marginBottom: 2.5,
+    height: 400,
+    marginLeft: 20,
+    marginRight: 20,
+  },
+  listItem: {
+    flex: 1,
+    flexDirection: "row",
+    marginTop: 2.5,
+    marginBottom: 2.5,
+    borderColor: "black",
+    borderWidth: 1,
+    borderStyle: "solid",
+    paddingLeft: 2.5,
+    paddingRight: 2.5,
+    backgroundColor: "royalblue",
+    padding: 1,
+  },
+});
