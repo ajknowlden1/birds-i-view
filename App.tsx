@@ -34,6 +34,7 @@ export default function App(){
                 <Stack.Screen name="Homefeed" component={Homefeed} />
                 <Stack.Screen name="UserProfile" component={UserProfile} />
                 <Stack.Screen name="UserAccount" component={UserAccount} /> 
+                <Stack.Screen name="Map" component={Map} />
               </>
               ) : ( 
               <>

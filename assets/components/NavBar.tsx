@@ -30,7 +30,7 @@ export const NavBar = (props: any) => {
   return (
     <View style={styles.navBar} >
       <Text style={styles.navItem}>Home</Text>
-      <TouchableOpacity style={styles.navItem} onPress={mapNav}><Text>Map</Text></TouchableOpacity>
+      <TouchableOpacity onPress={mapNav}><Text style={styles.navItem}>Map</Text></TouchableOpacity>
       <TouchableOpacity onPress={userProfileNav}><Text style={styles.navItem}>Account</Text></TouchableOpacity>
     </View>
   );
