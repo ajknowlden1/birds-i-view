@@ -1,54 +1,70 @@
-import { StyleSheet, View, Text, TextInput, Button, ScrollView} from "react-native";
+import { StyleSheet, View, Text, TextInput, Button, ScrollView, TouchableOpacity} from "react-native";
 import {useEffect, useState } from "react";
-import {getGBSpeciesCodes, getAllBirds} from "../api/ebird";
+import {getBirdBySpeciesCode} from "../api/ebird";
+import {britBirds} from "../../britBirds";
 
-export default function SpeciesLookup(){
+export default function SpeciesLookup(props:any){
+
+    const [speciesCode, setSpeciesCode] = useState('brant')
+    const [sightings, setSightings] = useState([]);
+    const [birdName, setBirdName] = useState('');
+    const [birdPicked, setBirdPicked] = useState(false);
+
+    const commonNames = Object.values(britBirds);
+    const speciesCodes = Object.keys(britBirds);
+
    
-    const [loading, setLoading] = useState(true);
-    const [codes, setCodes] = useState([]);
-    const [response, setResponse] = useState();
-    let speciesCodes = ['hello'];
-    const britishBirds = [];
-    const [stringBirds, setStringBirds] = useState('');
+
 
     useEffect(() => {
-        getGBSpeciesCodes()
+        getBirdBySpeciesCode(speciesCode)
         .then((res: any) => {
-            setCodes(res.data)
-        })
-        .then(() => {
-            getAllBirds()
-            .then((res : any) => {
-                let data = res.data;
-                setResponse(data);
-                setLoading(false)
-                for(let i = 0; i < 16753; i++){
-                    if(codes.includes(data[i].speciesCode)){
-                        britishBirds.push(
-                            {speciesCode: data[i].speciesCode,
-                            commonName: data[i].comName})
-                    }
-                }
-                setStringBirds(JSON.stringify(britishBirds))
-            })
-        })
-    }, [])
-    
-    if(!loading){
+            console.log(res.data)
+            setSightings(res.data)
+            setBirdPicked(true)
+        });
+      }, [birdPicked]);
+
+    function submit(){
+        let index = commonNames.indexOf(birdName)
+        setSpeciesCode(speciesCodes[index])
+        
+    }
+
+    if(!birdPicked){
         return (
-            <ScrollView>
-                <Text
-                    selectable={true}>{stringBirds}</Text>
-            </ScrollView>
+            <View style={styles.container}>
+                <Text style={styles.text}>Submit Bird Name</Text>
+                <TextInput
+                    style={styles.text}
+                    placeholder='Enter Bird Name'
+                    onChangeText={setBirdName}
+                    value={birdName}
+                />
+                <TouchableOpacity style={styles.button} onPress={submit}><Text>Find Bird</Text></TouchableOpacity>
+                
+            </View>
         )
     } else {
         return (
-            <View>
-                <Text>
-                    Loading
-                </Text>
-            </View>
         )
     }
 
 }
+
+const styles = StyleSheet.create({
+    container:{
+        marginTop: 50,
+        alignItems: 'center'},
+    text:{
+        padding: 15,
+        fontSize: 25,
+        margin: 5,
+        textAlign: "center"},
+    button:{
+        backgroundColor: '#9cbedb',
+        borderRadius: 15,
+        marginTop: 5,
+        padding: 10,
+        fontSize: 35,
+        }})

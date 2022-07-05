@@ -30,7 +30,7 @@ export const NavBottom = (props: any) => {
   return (
     <>
       <View style={styles.navBar}>
-        <TouchableOpacity onPress={speciesLookupNav} style={styles.navItem}><Text style={styles.navBtnText}>Species Lookup</Text></TouchableOpacity>
+        <TouchableOpacity onPress={speciesLookupNav} setBirds={props.setBirds} style={styles.navItem}><Text style={styles.navBtnText}>Species Lookup</Text></TouchableOpacity>
         <PostcodeLookup setBirds={props.setBirds} postcode={props.postcode} setPostcode={props.setPostcode}></PostcodeLookup>
         <Text style={styles.navItem}>Submit Sighting</Text>
       </View>

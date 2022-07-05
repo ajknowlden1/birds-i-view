@@ -14,18 +14,9 @@ export const getBirdsByLocation = (lat: number, lng: number) => {
     });
 };
 
-export const getGBSpeciesCodes = () => {
-  return eBirdApi
-  .get('product/spplist/GB')
-  .then((res) => {
+export const getBirdBySpeciesCode = (speciesCode: string) => {
+  return eBirdApi.get(`data/obs/GB/recent/${speciesCode}`).then((res) => {
     return res;
-  })
-}
+  });
+};
 
-export const getAllBirds = () => {
-  return eBirdApi
-  .get('ref/taxonomy/ebird?fmt=json')
-  .then((res) => {
-    return res;
-  })
-}
