@@ -22,8 +22,6 @@ export const getAllRecentBirdsByCountry = () => {
 
 export const getBirdByCommonName = (speciesCode: string) => {
   return eBirdApi.get(`data/obs/GB/recent/${speciesCode}`).then((res) => {
-    console.log(speciesCode, "<<<<<<<<<<speciesCode in api");
-    console.log(res, "<<<<<<<<<<<<<res in api");
     return res;
   });
 };

@@ -20,8 +20,6 @@ export const BirdLookup = (props: any) => {
     });
   }, [speciesCode]);
 
-  console.log(allBirds, "<<<<allBirds state");
-
   const handleSubmitBirdLookup = () => {
     const birdName = allBirds.filter(
       (bird) => bird.comName.toLowerCase() === commonName.toLowerCase() //allows case insensitive input
@@ -31,12 +29,9 @@ export const BirdLookup = (props: any) => {
       setCommonName("");
     } else {
       setSpeciesCode(birdName[0].speciesCode);
-      console.log(speciesCode, "<<<<speciesCode state");
       setCommonName("");
     }
   };
-
-  console.log(speciesCode, "<<<<speciesCode state");
 
   return (
     <>
