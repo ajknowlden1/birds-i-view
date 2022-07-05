@@ -1,11 +1,25 @@
-import { StyleSheet, View, TextInput, Button } from "react-native";
+import { StyleSheet, View, Text, Button, TouchableOpacity } from "react-native";
 import { useState, useEffect } from "react";
 import { getBirdByCommonName, getAllRecentBirdsByCountry } from "../api/ebird";
+import Autocomplete from "react-native-autocomplete-input";
 
 export const BirdLookup = (props: any) => {
   const [speciesCode, setSpeciesCode] = useState("");
   const [commonName, setCommonName] = useState("");
   const [allBirds, setAllBirds] = useState([]);
+  const [filteredBirds, setFilteredBirds] = useState<any>([]);
+
+  const findBird = (input) => {
+    if (input) {
+      setFilteredBirds(
+        allBirds.filter((bird) =>
+          bird.comName.toLowerCase().includes(input.toLowerCase())
+        )
+      );
+    } else {
+      setFilteredBirds([]);
+    }
+  };
 
   useEffect(() => {
     getAllRecentBirdsByCountry().then((res: any) => {
@@ -36,11 +50,27 @@ export const BirdLookup = (props: any) => {
   return (
     <>
       <View>
-        <TextInput
-          onChangeText={setCommonName}
+        <Autocomplete
+          data={filteredBirds}
           value={commonName}
+          onChangeText={(text) => {
+            findBird(text);
+            setCommonName(text);
+          }}
           placeholder="Seach bird"
-        ></TextInput>
+          flatListProps={{
+            renderItem: ({ item }) => (
+              <TouchableOpacity
+                onPress={() => {
+                  setCommonName(item.comName);
+                  setFilteredBirds([]);
+                }}
+              >
+                <Text>{item.comName}</Text>
+              </TouchableOpacity>
+            ),
+          }}
+        />
         <Button
           title="Look Up"
           onPress={() => handleSubmitBirdLookup()}
