@@ -35,7 +35,7 @@ export const SpeciesPage = ({ route }) => {
       borderWidth: 2,
       borderRadius: 10,
       marginBottom: 2.5,
-      flex: 0.5,
+      height: 400,
       marginLeft: 20,
       marginRight: 20,
       marginTop: 75,

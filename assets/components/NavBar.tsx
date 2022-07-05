@@ -7,7 +7,7 @@ export const NavBar = (props: any) => {
       flexDirection: "row",
       marginLeft: "auto",
       marginRight: "auto",
-      marginTop: 2.5,
+      marginTop: 10,
       justifyContent: "center",
     },
     navItem: {
@@ -31,7 +31,10 @@ export const NavBar = (props: any) => {
 
   return (
     <View style={styles.navBar}>
-      <Text style={styles.navItem}>Home</Text>
+      <TouchableOpacity onPress={homeNav}>
+        <Text style={styles.navItem}>Home</Text>
+      </TouchableOpacity>
+
       <TouchableOpacity onPress={mapNav}>
         <Text style={styles.navItem}>Map</Text>
       </TouchableOpacity>
