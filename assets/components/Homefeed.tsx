@@ -373,39 +373,13 @@ export default function Homefeed(props: any) {
     },
   ]);
 
-  const styles = StyleSheet.create({
-    localFeed: {
-      borderColor: "black",
-      borderWidth: 2,
-      borderStyle: "solid",
-      backgroundColor: "darkblue",
-      marginBottom: 2.5,
-      height: 400,
-      marginLeft: 20,
-      marginRight: 20,
-    },
-    listItem: {
-      flex: 1,
-      flexDirection: "row",
-      marginTop: 2.5,
-      marginBottom: 2.5,
-      borderColor: "black",
-      borderWidth: 1,
-      borderStyle: "solid",
-      paddingLeft: 2.5,
-      paddingRight: 2.5,
-      backgroundColor: "royalblue",
-      padding: 10,
-      fontSize: 42,
-    },
-  });
-
   const speciesPageNav = (bird: any) => {
     navigation.navigate("SpeciesPage", {
       birdInfo: bird,
       navigation: navigation,
     });
   };
+
 
   return (
     <>
@@ -442,3 +416,29 @@ export default function Homefeed(props: any) {
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  localFeed: {
+    borderColor: "black",
+    borderWidth: 2,
+    borderStyle: "solid",
+    backgroundColor: "darkblue",
+    marginBottom: 2.5,
+    height: 400,
+    marginLeft: 20,
+    marginRight: 20,
+  },
+  listItem: {
+    flex: 1,
+    flexDirection: "row",
+    marginTop: 2.5,
+    marginBottom: 2.5,
+    borderColor: "black",
+    borderWidth: 1,
+    borderStyle: "solid",
+    paddingLeft: 2.5,
+    paddingRight: 2.5,
+    backgroundColor: "royalblue",
+    padding: 1,
+  },
+});

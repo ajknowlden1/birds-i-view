@@ -11,12 +11,14 @@ import {
   UserAccount,
   UserProfile,
   Map,
+  SubmitSighting,
 } from "./assets/components/";
 import { SpeciesPage } from "./assets/components/SpeciesPage";
 
 const Stack = createStackNavigator();
 
 export default function App() {
+
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -38,7 +40,8 @@ export default function App() {
               <>
                 <Stack.Screen name="Homefeed" component={Homefeed} />
                 <Stack.Screen name="UserProfile" component={UserProfile} />
-                <Stack.Screen name="UserAccount" component={UserAccount} />
+                <Stack.Screen name="UserAccount" component={UserAccount} /> 
+                <Stack.Screen name="SubmitSighting" component={SubmitSighting} />
                 <Stack.Screen name="Map" component={Map} />
                 <Stack.Screen name="SpeciesPage" component={SpeciesPage} />
               </>
