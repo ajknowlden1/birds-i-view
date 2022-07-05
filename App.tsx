@@ -1,8 +1,8 @@
-import { StyleSheet, Text } from "react-native";
+import { Image, Dimensions } from "react-native";
 import { auth } from "./assets/components/firebase/config";
 import React, { useState } from "react";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import {
   Login,
@@ -12,13 +12,17 @@ import {
   UserProfile,
   Map,
   SubmitSighting,
+  UserSightings,
 } from "./assets/components/";
 import { SpeciesPage } from "./assets/components/SpeciesPage";
 
 const Stack = createStackNavigator();
 
-export default function App() {
+const navTheme = DefaultTheme;
+navTheme.colors.background = "#0E67B4";
+navTheme.colors.text = "white";
 
+export default function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -28,13 +32,14 @@ export default function App() {
   });
 
   if (loading) {
-    return <Text>Hello</Text>;
+    return <Image source={require('./assets/logos/biv-logo.jpeg')} style={{width: Dimensions.get('window').width * 0.5,
+    height: Dimensions.get('window').height * 0.2}}></Image>;
   }
 
   return (
     <SafeAreaProvider>
-      <SafeAreaView style={{ flex: 1, backgroundColor: "transparent" }}>
-        <NavigationContainer>
+      <SafeAreaView style={{ flex: 1, backgroundColor: "#0E67B4"}}>
+        <NavigationContainer theme={navTheme}>
           <Stack.Navigator screenOptions={{ headerShown: false }}>
             {user ? (
               <>
@@ -44,6 +49,7 @@ export default function App() {
                 <Stack.Screen name="SubmitSighting" component={SubmitSighting} />
                 <Stack.Screen name="Map" component={Map} />
                 <Stack.Screen name="SpeciesPage" component={SpeciesPage} />
+                <Stack.Screen name="UserSightings" component={UserSightings} />
               </>
             ) : (
               <>
@@ -57,12 +63,3 @@ export default function App() {
     </SafeAreaProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

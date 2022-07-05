@@ -1,10 +1,35 @@
-
-import {useState, useEffect} from "react"
+import { useState, useEffect} from "react"
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { PostcodeLookup } from "./PostcodeLookup";
 import { BirdLookup } from "./BirdLookup";
+import { useTheme } from '@react-navigation/native';
 
 export const NavBottom = (props: any) => {
+  const { colors } = useTheme();
+  const styles = StyleSheet.create({
+    navBar: {
+      flexDirection: "row",
+      marginLeft: "auto",
+      marginRight: "auto",
+      height: "auto",
+      justifyContent: "center",
+      alignContent: "center",
+      borderColor: "black",
+      borderWidth: 2,
+    },
+    navItem: {
+      paddingLeft: 20,
+      paddingRight: 20,
+      flex: 1,
+      fontSize: 20,
+      textAlign: "center",
+    },
+    navBtnText: {
+      fontSize: 20,
+      textAlign: "center",
+      color: colors.text,
+    }
+  });
 
   function submitSightingNav() {
     props.navigation.navigate('SubmitSighting');
@@ -21,26 +46,3 @@ export const NavBottom = (props: any) => {
   );
 };
 
-const styles = StyleSheet.create({
-  navBar: {
-    flexDirection: "row",
-    marginLeft: "auto",
-    marginRight: "auto",
-    height: "auto",
-    justifyContent: "center",
-    alignContent: "center",
-    borderColor: "black",
-    borderWidth: 2,
-  },
-  navItem: {
-    paddingLeft: 20,
-    paddingRight: 20,
-    flex: 1,
-    fontSize: 20,
-    textAlign: "center",
-  },
-  navBtnText: {
-    fontSize: 20,
-    textAlign: "center",
-  }
-});

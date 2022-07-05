@@ -1,6 +1,25 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { useTheme } from '@react-navigation/native';
 
 export const NavBar = (props: any) => {
+  const { colors } = useTheme();
+  const styles = StyleSheet.create({
+    navBar: {
+      flex: 0.125,
+      flexDirection: "row",
+      marginLeft: "auto",
+      marginRight: "auto",
+      marginTop: 2.5,
+      justifyContent: "center",
+    },
+    navItem: {
+      paddingLeft: 20,
+      paddingRight: 20,
+      fontSize: 20,
+      color: colors.text
+    },
+  });
+
 
   function userProfileNav() {
     props.navigation.navigate("UserProfile");
@@ -30,19 +49,3 @@ export const NavBar = (props: any) => {
   );
 };
 
-const styles = StyleSheet.create({
-  navBar: {
-    flex: 0.125,
-    flexDirection: "row",
-    marginLeft: "auto",
-    marginRight: "auto",
-    marginTop: 2.5,
-    justifyContent: "center",
-    
-  },
-  navItem: {
-    paddingLeft: 20,
-    paddingRight: 20,
-    fontSize: 20,
-  },
-});
