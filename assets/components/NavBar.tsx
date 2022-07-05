@@ -9,7 +9,6 @@ export const NavBar = (props: any) => {
       marginRight: "auto",
       marginTop: 2.5,
       justifyContent: "center",
-      
     },
     navItem: {
       paddingLeft: 20,
@@ -19,19 +18,26 @@ export const NavBar = (props: any) => {
   });
 
   function userProfileNav() {
-    props.navigation.navigate('UserProfile');
+    props.navigation.navigate("UserProfile");
   }
 
-  function mapNav(){
+  function mapNav() {
+    props.navigation.navigate("Map", { postcode: props.postcode });
+  }
 
-    props.navigation.navigate('Map', {postcode: props.postcode})
+  function homeNav() {
+    props.navigation.navigate("Homefeed");
   }
 
   return (
-    <View style={styles.navBar} >
+    <View style={styles.navBar}>
       <Text style={styles.navItem}>Home</Text>
-      <TouchableOpacity onPress={mapNav}><Text style={styles.navItem}>Map</Text></TouchableOpacity>
-      <TouchableOpacity onPress={userProfileNav}><Text style={styles.navItem}>Account</Text></TouchableOpacity>
+      <TouchableOpacity onPress={mapNav}>
+        <Text style={styles.navItem}>Map</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={userProfileNav}>
+        <Text style={styles.navItem}>Account</Text>
+      </TouchableOpacity>
     </View>
   );
 };

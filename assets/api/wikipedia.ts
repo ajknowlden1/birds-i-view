@@ -1,16 +1,9 @@
 import axios from "axios";
 
-const wikipediaAPI = axios.create({
-  baseURL: "",
-  headers: {
-    "Api-User-Agent": "axios/0.27.2 ajknowlden1@gmail.com react-native/0.68.2",
-  },
-});
-
 export const getBirdPicture = (birdName: string) => {
   return axios
     .get(
-      `http://en.wikipedia.org/w/api.php?action=query&prop=pageimages&format=json&piprop=original&titles=${birdName}&origin=*`
+      `http://en.wikipedia.org/w/api.php?action=query&prop=pageimages&format=json&piprop=original&redirects=true&titles=${birdName}&origin=*`
     )
     .then((res) => {
       const { data } = res;
@@ -23,7 +16,7 @@ export const getBirdPicture = (birdName: string) => {
 export const getBirdSummary = (birdName: string) => {
   return axios
     .get(
-      `http://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&explaintext&exintro&titles=${birdName}&origin=*`
+      `http://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&explaintext&exintro&exlimit=10&redirects=true&titles=${birdName}&origin=*`
     )
     .then((res) => {
       const { data } = res;

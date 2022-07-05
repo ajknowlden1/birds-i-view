@@ -3,6 +3,7 @@ import { NavBar } from "./NavBar";
 import { NavBottom } from "./NavBottom";
 import { useState } from "react";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
+import { getBirdPicture } from "../api/wikipedia";
 
 export default function Homefeed(props: any) {
   const [postcode, setPostcode] = useState("");
@@ -394,12 +395,16 @@ export default function Homefeed(props: any) {
       paddingLeft: 2.5,
       paddingRight: 2.5,
       backgroundColor: "royalblue",
-      padding: 1,
+      padding: 10,
+      fontSize: 42,
     },
   });
 
   const speciesPageNav = (bird: any) => {
-    navigation.navigate("SpeciesPage", { birdInfo: bird });
+    navigation.navigate("SpeciesPage", {
+      birdInfo: bird,
+      navigation: navigation,
+    });
   };
 
   return (
@@ -417,12 +422,6 @@ export default function Homefeed(props: any) {
               <TouchableOpacity onPress={() => speciesPageNav(bird)}>
                 <>
                   <View style={styles.listItem}>
-                    {/* <Image
-                    source={{
-                      uri: "https://images.pexels.com/photos/70069/pexels-photo-70069.jpeg",
-                    }}
-                    style={{ width: 50, height: 50, padding: 2.5 }}
-                  ></Image> */}
                     <Text>
                       {bird.howMany
                         ? `${bird.howMany} ${bird.comName} at ${bird.locName}`
