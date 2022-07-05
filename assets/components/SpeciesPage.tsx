@@ -2,11 +2,12 @@ import { StyleSheet, Text, View, Image } from "react-native";
 import { NavBar } from "./NavBar";
 import { NavBottom } from "./NavBottom";
 import { useState, useEffect } from "react";
-import { getBirdPicture } from "../api/wikipedia";
+import { getBirdPicture, getBirdSummary } from "../api/wikipedia";
 
 export const SpeciesPage = ({ route }) => {
   const { birdInfo } = route.params;
   const [birdPicture, setBirdPicture] = useState("");
+  const [birdSummary, setBirdSummary] = useState("");
 
   useEffect(() => {
     let birdWords = birdInfo.comName.split(" ");
@@ -20,6 +21,9 @@ export const SpeciesPage = ({ route }) => {
     getBirdPicture(formattedName).then((res) => {
       setBirdPicture(res);
     });
+    getBirdSummary(formattedName).then((res) => {
+      setBirdSummary(res);
+    });
   });
   return (
     <>
@@ -32,6 +36,7 @@ export const SpeciesPage = ({ route }) => {
             source={{ uri: birdPicture }}
             style={{ width: 250, height: 250 }}
           ></Image>
+          <Text>{birdSummary}</Text>
         </View>
       </View>
     </>
