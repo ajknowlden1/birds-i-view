@@ -2,6 +2,7 @@
 import {useState, useEffect} from "react"
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { PostcodeLookup } from "./PostcodeLookup";
+import { BirdLookup } from "./BirdLookup";
 
 export const NavBottom = (props: any) => {
 
@@ -12,7 +13,7 @@ export const NavBottom = (props: any) => {
   return (
     <>
       <View style={styles.navBar}>
-        <Text style={styles.navItem}>Lookup Bird</Text>
+        <BirdLookup setBirds={props.setBirds}></BirdLookup>
         <PostcodeLookup setBirds={props.setBirds} postcode={props.postcode} setPostcode={props.setPostcode}></PostcodeLookup>
         <TouchableOpacity onPress={submitSightingNav} style={styles.navItem}><Text style={styles.navBtnText}>Submit Sighting</Text></TouchableOpacity>      
       </View>
