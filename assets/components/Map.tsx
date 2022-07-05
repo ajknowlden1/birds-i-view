@@ -36,7 +36,8 @@ export default function Map({ route }) {
   }
   
   useEffect(() => {
-    if(!postcode){
+    if(!postcode && sightings){
+      console.log(sightings)
       setLat(53.8008)
       setLng(-1.5491)
       setDelta(5);
@@ -101,7 +102,7 @@ export default function Map({ route }) {
   } else {
     return (
       <View>
-        <Text style={styles.text}>Please Enter A Valid Postcode</Text>
+        <Text style={styles.text}>Please Select a Postcode or A Bird Species</Text>
       </View>
     );
   }
