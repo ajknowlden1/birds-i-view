@@ -2,10 +2,11 @@ import { StyleSheet, Text, View, Image } from "react-native";
 import { NavBar } from "./NavBar";
 import { NavBottom } from "./NavBottom";
 import { useState } from "react";
-import { ScrollView } from "react-native-gesture-handler";
+import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
+import { getBirdPicture } from "../api/wikipedia";
 
-export default function Homefeed(props : any) {
-  const [postcode, setPostcode] = useState('')
+export default function Homefeed(props: any) {
+  const [postcode, setPostcode] = useState("");
 
   const navigation = props.navigation;
 
@@ -372,60 +373,73 @@ export default function Homefeed(props : any) {
     },
   ]);
 
-  const styles = StyleSheet.create({
-    localFeed: {
-      borderColor: "black",
-      borderWidth: 2,
-      borderStyle: "solid",
-      backgroundColor: "darkblue",
-      marginBottom: 2.5,
-      height: 400,
-      marginLeft: 20,
-      marginRight: 20,
-    },
-    listItem: {
-      flex: 1,
-      flexDirection: "row",
-      marginTop: 2.5,
-      marginBottom: 2.5,
-      borderColor: "black",
-      borderWidth: 1,
-      borderStyle: "solid",
-      paddingLeft: 2.5,
-      paddingRight: 2.5,
-      backgroundColor: "royalblue",
-      padding: 1,
-    },
-  });
+  const speciesPageNav = (bird: any) => {
+    navigation.navigate("SpeciesPage", {
+      birdInfo: bird,
+      navigation: navigation,
+    });
+  };
+
 
   return (
     <>
-      <NavBar postcode={postcode} setPostcode={setPostcode} navigation={navigation} ></NavBar>
+      <NavBar
+        postcode={postcode}
+        setPostcode={setPostcode}
+        navigation={navigation}
+      ></NavBar>
       <Text style={{ padding: 10 }}>Sightings Summary</Text>
       <ScrollView style={styles.localFeed} nestedScrollEnabled={true}>
         <View>
           {birds.map((bird) => {
             return (
-              <>
-                <View style={styles.listItem}>
-                  <Image
-                    source={{
-                      uri: "https://images.pexels.com/photos/70069/pexels-photo-70069.jpeg",
-                    }}
-                    style={{ width: 50, height: 50, padding: 2.5 }}
-                  ></Image>
-                  <Text>
-                    {bird.howMany
-                      ? `${bird.howMany} ${bird.comName} at ${bird.locName}`
-                      : `${bird.comName} at ${bird.locName}`}
-                  </Text>
-                </View>
-              </>
+              <TouchableOpacity onPress={() => speciesPageNav(bird)}>
+                <>
+                  <View style={styles.listItem}>
+                    <Text>
+                      {bird.howMany
+                        ? `${bird.howMany} ${bird.comName} at ${bird.locName}`
+                        : `${bird.comName} at ${bird.locName}`}
+                    </Text>
+                  </View>
+                </>
+              </TouchableOpacity>
             );
           })}
         </View>
       </ScrollView>
-      <NavBottom postcode={postcode} setPostcode={setPostcode} setBirds={setBirds} navigation={navigation}></NavBottom>
+      <NavBottom
+        postcode={postcode}
+        setPostcode={setPostcode}
+        setBirds={setBirds}
+        navigation={navigation}
+      ></NavBottom>
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  localFeed: {
+    borderColor: "black",
+    borderWidth: 2,
+    borderStyle: "solid",
+    backgroundColor: "darkblue",
+    marginBottom: 2.5,
+    height: 400,
+    marginLeft: 20,
+    marginRight: 20,
+  },
+  listItem: {
+    flex: 1,
+    flexDirection: "row",
+    marginTop: 2.5,
+    marginBottom: 2.5,
+    borderColor: "black",
+    borderWidth: 1,
+    borderStyle: "solid",
+    paddingLeft: 2.5,
+    paddingRight: 2.5,
+    backgroundColor: "royalblue",
+    padding: 1,
+  },
+});

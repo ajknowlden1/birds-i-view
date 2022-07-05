@@ -33,12 +33,16 @@ export const PostcodeLookup = (props: any) => {
   }, [lat, lng]);
 
   const styles = StyleSheet.create({
-    lookupPostcodeButton: {},
+    lookupPostcodeField: {
+      fontSize: 14,
+      width: 140,
+      paddingTop: 1.7,
+    },
   });
 
   return (
     <>
-      <View>
+      <View style={styles.lookupPostcodeField}>
         <TextInput
           onChangeText={props.setPostcode}
           value={props.postcode}
