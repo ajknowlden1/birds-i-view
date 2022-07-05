@@ -1,49 +1,42 @@
 import { StyleSheet, View, TextInput, Button } from "react-native";
 import { useState, useEffect } from "react";
-import { getBirdByCommonName } from "../api/ebird";
-import { common_Names } from "../../common-names";
+import { getBirdByCommonName, getAllRecentBirdsByCountry } from "../api/ebird";
 
 export const BirdLookup = (props: any) => {
   const [speciesCode, setSpeciesCode] = useState("");
   const [commonName, setCommonName] = useState("");
+  const [allBirds, setAllBirds] = useState([]);
 
-  //function that converts common name to species code
+  useEffect(() => {
+    getAllRecentBirdsByCountry().then((res: any) => {
+      setAllBirds(res.data);
+      props.setBirds(res.data); //put all recent sightings on show when app starts
+    });
+  }, []);
+
+  useEffect(() => {
+    getBirdByCommonName(speciesCode).then((res: any) => {
+      props.setBirds(res.data);
+    });
+  }, [speciesCode]);
+
+  console.log(allBirds, "<<<<allBirds state");
+
   const handleSubmitBirdLookup = () => {
-    //check if the bird name exists in the bulk data, STRICT MODE, user must input the full correct name for a specific bird
-    //if required, can make the search less strict and show all birds types of that species
-    const birdName = common_Names.filter(
-      (pair) =>
-        pair.COMMON_NAME.toLowerCase() === commonName.toLocaleLowerCase() //allows case insensitive input
+    const birdName = allBirds.filter(
+      (bird) => bird.comName.toLowerCase() === commonName.toLowerCase() //allows case insensitive input
     );
     if (!birdName.length) {
-      alert("Please type a correct bird name in full");
+      alert("Please enter a correct UK bird name in full");
       setCommonName("");
-    }
-    //convert to species code
-    else {
-      setSpeciesCode(birdName[0].SPECIES_CODE);
+    } else {
+      setSpeciesCode(birdName[0].speciesCode);
+      console.log(speciesCode, "<<<<speciesCode state");
       setCommonName("");
     }
   };
 
-  useEffect(() => {
-    getBirdByCommonName(speciesCode)
-      .then((res: any) => {
-        if (res.data.length === 0) {
-          alert("Please type a bird in the UK");
-        } else {
-          props.setBirds(res.data);
-          setCommonName("");
-        }
-      })
-      .catch((err) => {
-        alert("Please type a correct bird name");
-      });
-  }, [speciesCode]);
-
-  const styles = StyleSheet.create({
-    handleSubmitBirdLookup: {},
-  });
+  console.log(speciesCode, "<<<<speciesCode state");
 
   return (
     <>
@@ -60,4 +53,55 @@ export const BirdLookup = (props: any) => {
       </View>
     </>
   );
+
+  // const handleSubmitBirdLookup = () => {
+
+  //   const birdName = common_Names.filter(
+  //     (pair) => pair.COMMON_NAME.toLowerCase() === commonName.toLowerCase() //allows case insensitive input
+  //   );
+  //   if (!birdName.length) {
+  //     alert("Please type a correct bird name in full");
+  //     setCommonName("");
+  //   }
+  //   //convert to species code
+  //   else {
+  //     setSpeciesCode(birdName[0].SPECIES_CODE);
+  //     setCommonName("");
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   getBirdByCommonName(speciesCode)
+  //     .then((res: any) => {
+  //       if (res.data.length === 0) {
+  //         alert("Please type a bird in the UK");
+  //       } else {
+  //         props.setBirds(res.data);
+  //         setCommonName("");
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       alert("Please type a correct bird name");
+  //     });
+  // }, [speciesCode]);
+
+  // const styles = StyleSheet.create({
+  //   handleSubmitBirdLookup: {},
+  // });
+
+  // return (
+  //   <>
+  //     <View>
+  //       <TextInput
+  //         onChangeText={setCommonName}
+  //         value={commonName}
+  //         placeholder="Seach bird"
+  //       ></TextInput>
+  //       <Button
+  //         title="Look Up"
+  //         onPress={() => handleSubmitBirdLookup()}
+  //       ></Button>
+  //     </View>
+  //   </>
+  // );
 };
