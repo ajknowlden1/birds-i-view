@@ -47,10 +47,23 @@ export const BirdLookup = (props: any) => {
     }
   };
 
+  const styles = StyleSheet.create({
+    autocompletField: {
+      fontSize: 13.5,
+    },
+    lookupBtn: {
+      fontSize: 13.5,
+    },
+    selections: {
+      fontSize: 13.5,
+    },
+  });
+
   return (
     <>
       <View>
         <Autocomplete
+          style={styles.autocompletField}
           data={filteredBirds}
           value={commonName}
           onChangeText={(text) => {
@@ -66,7 +79,7 @@ export const BirdLookup = (props: any) => {
                   setFilteredBirds([]);
                 }}
               >
-                <Text>{item.comName}</Text>
+                <Text style={styles.selections}>{item.comName}</Text>
               </TouchableOpacity>
             ),
           }}
