@@ -1,24 +1,23 @@
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from "react-native"
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert } from "react-native"
 import { useState, useEffect } from "react"
 import { auth } from "./firebase/config";
 import { db } from "./firebase/config"
 import { addDoc, collection } from "firebase/firestore"
 import Autocomplete from "react-native-autocomplete-input"
-import { getBirdsByLocation } from "../api/ebird";
+import * as Location from 'expo-location';
+import { getAddressByLatLon } from "../api/maps";
 
 
-export default function SubmitSighting(){
+export default function SubmitSighting({navigation}: {navigation: any}){
     const [user, setUser] = useState<any | null>({});
     const [nameCommon, setNameCommon] = useState('');
-    const [numberOfBirds, setNumberOfBirds] = useState(1);
-    const [nameSci, setNameSci] = useState('');
-    const [location, setLocation] = useState('');
-    const [lat, setLat] = useState(0);
-    const [lng, setLng] = useState(0);
+    const [numberOfBirds, setNumberOfBirds] = useState<number| string>(1);
+    const [location, setLocation] = useState<any | null>(null);
+    const [errorMsg, setErrorMsg] = useState<string| null>(null);
+    const [lat, setLat] = useState<number| null>(null);
+    const [lng, setLng] = useState<number| null>(null);
     const [date, setDate] = useState("");
     const [time, setTime] = useState("");
-
-    const [query, setQuery] = useState('');
     const [filteredBirds, setFilteredBirds] = useState<any>([]);
 
 
@@ -383,8 +382,7 @@ export default function SubmitSighting(){
         subId: "S113505026",
       },]
 
-
-    const findBird = (query) => {
+    const findBird = (query: any) => {
         if (query) {
           setFilteredBirds(
             birdsArray.filter((bird) => bird.comName.includes(query))
@@ -394,22 +392,57 @@ export default function SubmitSighting(){
         }
       };
 
+    function addZero(i: number | string) {
+        if (i < 10) {
+            i = "0" + i;
+        }
+        return i;
+    }
+
     useEffect(() => {
         setUser(auth.currentUser);
-        const dateToday = new Date(parseInt(Date.now()));
-        setDate(`${dateToday.getDate()}/${dateToday.getMonth() + 1}/${dateToday.getFullYear()}`)
-        setTime(`${dateToday.getHours()}:${dateToday.getMinutes()}`)
+        const dateToday = new Date(Date.now());
+        setDate(`${addZero(dateToday.getDate())}/${addZero(dateToday.getMonth() + 1)}/${addZero(dateToday.getFullYear())}`)
+        setTime(`${addZero(dateToday.getHours())}:${addZero(dateToday.getMinutes())}`)
       }, []);
 
+      useEffect(() => {
+        Location.getCurrentPositionAsync({accuracy: Location.Accuracy.Highest})
+        .then((res) => {
+          setLat(res.coords.latitude);
+          setLng(res.coords.longitude);
+          getAddressByLatLon(res.coords.latitude, res.coords.longitude)
+          .then((address: any) => {setLocation(address.data.results[0].formatted_address)})
+        })
+      }, []);
+
+      let locat = 'Getting location...';
+      if (errorMsg) {
+        locat = errorMsg;
+      } else if (location) {
+        locat = JSON.stringify(location);
+      }
+
     function submitSighting(){
+      if(nameCommon === ""){
+        Alert.alert("Please enter a birdname for your sighting") 
+      } else if (lat === null || lng === null){
+        Alert.alert("Please wait for your location to be determined or enter your location") 
+      } else if (/[0-9]{2}\/[0-9]{2}\/[0-9]{4}/g.test(date) === false) {
+        Alert.alert("Please enter a date in the format DD/MM/YYYY")
+      } else if (/[0-9]{2}:[0-9]{2}/g.test(time) === false) {
+        Alert.alert("Please enter a time in the format HH:MM")
+      } else {
+        const bird = birdsArray.filter((bird) => {return bird.comName === nameCommon})
         const data = {
             uid: user.uid,
-            speciesCode: bird.speciesCode,
+            speciesCode: bird[0].speciesCode,
             comName: nameCommon,
-            sciName: nameSci,
+            sciName: bird[0].sciName,
             howMan: numberOfBirds,
             locNam: location,
-            obsDt: Date,
+            obsDt: date,
+            obsTm: time,
             lat: lat,
             lng: lng,
             obsValid: true,
@@ -418,40 +451,35 @@ export default function SubmitSighting(){
         }
         addDoc(collection(db, "sightings"), data)
             .then((res) => {
-                console.log(res);
+                Alert.alert('Sighting added successfully!')
+                navigation.navigate('Homefeed')
             })
             .catch((err) => {
-                console.log(err);
-            })
+                Alert.alert(err);
+            })}
     }
-
-
 
     return(
     <View>
         <Text style={styles.title}>Submit Sighting</Text>
-
+        <View style={styles.sectionTop}>
+            <Text style={styles.inputName} >Bird Species {"\n\n\n"}</Text>
+        </View>
         <View style={styles.section}>
-            <Text style={styles.inputName}>Bird Species</Text>
-            <TextInput 
-                style={styles.input} 
-                placeholder="Common Name" 
-                onChangeText={setNameCommon}>
-            </TextInput>
-            <Text style={styles.input}>OR</Text>
-            <TextInput style={styles.input} placeholder="Scientific Name"></TextInput>
+          <Text style={styles.inputName}>Number of birds</Text>
+          <TextInput style={styles.input} placeholder={`${numberOfBirds}`} onChangeText={setNumberOfBirds} keyboardType="numeric"></TextInput>
         </View>
-
-        <TextInput style={styles.input} placeholder="Number of birds"></TextInput>
-        <TextInput style={styles.input} placeholder="Location"></TextInput>
-
-
-        <Text style={styles.inputName}>Date & Time of sighting</Text>
-        <View >
-            <TextInput style={styles.input} placeholder={date} onChangeText={setDate}></TextInput>
-            <TextInput style={styles.input} placeholder={time} onChangeText={setTime}></TextInput>
+        <View style={styles.section}>
+          <Text style={styles.inputName}>Location</Text>
+          <TextInput style={styles.input} placeholder={locat}></TextInput>
         </View>
-
+        <View style={styles.section}>
+          <Text style={styles.inputName}>Date & Time of sighting</Text>
+          <View style={{ flexDirection: "row" }}>
+              <TextInput style={styles.inputFlex} placeholder={date} onEndEditing={() => setDate}></TextInput>
+              <TextInput style={styles.inputFlex} placeholder={time} onEndEditing={() => setTime}></TextInput>
+          </View>
+        </View>
         <TouchableOpacity onPress={submitSighting} style={styles.submitBtn}><Text>Submit</Text></TouchableOpacity>
         <View style={styles.autocompleteContainer}>
             <Autocomplete 
@@ -460,10 +488,9 @@ export default function SubmitSighting(){
             onChangeText={(text) => {findBird(text); setNameCommon(text)}}
             placeholder="Common Name"
             flatListProps={{
-                // keyExtractor: (_, idx) => idx,
                 renderItem: ({ item }) => 
                 <TouchableOpacity onPress={() => {setNameCommon(item.comName); setFilteredBirds([])}}>
-                    <Text>{item.comName}</Text>
+                    <Text style={styles.dropdown}>{item.comName}</Text>
                 </TouchableOpacity>
             }}
             />
@@ -478,15 +505,28 @@ const styles = StyleSheet.create({
       textAlign: "center",
       fontSize: 25,
     },
+    sectionTop: {
+      borderColor: "black",
+      borderBottomWidth: 3,
+      borderTopWidth: 3,
+      margin: 20,
+      padding: 5,
+    },
     section: {
         borderColor: "black",
-        borderBottomWidth: 1,
-        borderTopWidth: 1,
+        borderBottomWidth: 3,
+        marginTop: 0,
         margin: 20,
+        padding: 5,
     },
     input: {
       textAlign: "center",
       fontSize: 18,
+      padding: 10,
+    },
+    inputFlex: {
+      fontSize: 18,
+      flex: 1,
     },
     inputName:{
         textAlign: "left",
@@ -505,14 +545,15 @@ const styles = StyleSheet.create({
         flex: 1,
         left: 0,
         right: 0,
-        top: 350,
+        top: 75,
         zIndex: 1,
         position: 'absolute',
-        margin: 20
+        margin: 20,
+        marginHorizontal: 50,
       },
-    datePickerStyle: {
-      width: 200,
-      marginTop: 20,
-      alignSelf: "center",
-    },
+      dropdown: {
+        fontSize: 16,
+        backgroundColor: "#9cbedb",
+      }
+
   });
