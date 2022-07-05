@@ -70,7 +70,7 @@ export const BirdLookup = (props: any) => {
             findBird(text);
             setCommonName(text);
           }}
-          placeholder="Seach bird"
+          placeholder="Search bird"
           flatListProps={{
             renderItem: ({ item }) => (
               <TouchableOpacity
