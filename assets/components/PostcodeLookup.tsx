@@ -4,15 +4,16 @@ import { getBirdsByLocation } from "../api/ebird";
 import { getLocationByPostCode } from "../api/postcodeConverter";
 
 export const PostcodeLookup = (props: any) => {
-  const [postcode, setPostcode] = useState("");
+
   const [lat, setLat] = useState(0);
   const [lng, setLng] = useState(0);
 
   const handleSubmitPostcode = () => {
-    getLocationByPostCode(postcode)
+    getLocationByPostCode(props.postcode)
       .then((res) => {
-        setLat(Math.trunc(res.data.data.latitude));
-        setLng(Math.trunc(res.data.data.longitude));
+
+        setLat(parseFloat(parseFloat(res.data.data.latitude).toFixed(2)));
+        setLng(parseFloat(parseFloat(res.data.data.longitude).toFixed(2)));
       })
       .catch((err) => {
         alert("Please enter a valid postcode");
@@ -39,8 +40,8 @@ export const PostcodeLookup = (props: any) => {
     <>
       <View>
         <TextInput
-          onChangeText={setPostcode}
-          value={postcode}
+          onChangeText={props.setPostcode}
+          value={props.postcode}
           placeholder="Insert Postcode"
         ></TextInput>
         <Button title="Look Up" onPress={() => handleSubmitPostcode()}></Button>
