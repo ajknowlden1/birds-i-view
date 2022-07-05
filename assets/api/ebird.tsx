@@ -14,14 +14,9 @@ export const getBirdsByLocation = (lat: number, lng: number) => {
     });
 };
 
-export const getAllRecentBirdsByCountry = () => {
-  return eBirdApi.get("data/obs/GB/recent").then((res) => {
-    return res;
-  });
-};
-
-export const getBirdByCommonName = (speciesCode: string) => {
+export const getBirdBySpeciesCode = (speciesCode: string) => {
   return eBirdApi.get(`data/obs/GB/recent/${speciesCode}`).then((res) => {
     return res;
   });
 };
+

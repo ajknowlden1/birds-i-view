@@ -1,14 +1,13 @@
 import { StyleSheet, Text, View, Image } from "react-native";
 import { NavBar } from "./NavBar";
 import { NavBottom } from "./NavBottom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { getBirdPicture } from "../api/wikipedia";
 
-export default function Homefeed(props: any) {
-  const [postcode, setPostcode] = useState("");
+export default function Homefeed({route, navigation}, props: any) {
 
-  const navigation = props.navigation;
+  const [postcode, setPostcode] = useState("");
 
   const [birds, setBirds] = useState([
     {
@@ -380,6 +379,11 @@ export default function Homefeed(props: any) {
     });
   };
 
+  useEffect(() => {
+    if(route.params.sightings){
+      setBirds(route.params.sightings)
+    }
+  },[route.params])
 
   return (
     <>
