@@ -4,6 +4,8 @@ import { auth } from "./firebase/config";
 import { db } from "./firebase/config"
 import { addDoc, collection } from "firebase/firestore"
 import Autocomplete from "react-native-autocomplete-input"
+import { getBirdsByLocation } from "../api/ebird";
+
 
 export default function SubmitSighting(){
     const [user, setUser] = useState<any | null>({});
@@ -13,6 +15,8 @@ export default function SubmitSighting(){
     const [location, setLocation] = useState('');
     const [lat, setLat] = useState(0);
     const [lng, setLng] = useState(0);
+    const [date, setDate] = useState("");
+    const [time, setTime] = useState("");
 
     const [query, setQuery] = useState('');
     const [filteredBirds, setFilteredBirds] = useState<any>([]);
@@ -382,7 +386,6 @@ export default function SubmitSighting(){
 
     const findBird = (query) => {
         if (query) {
-          
           setFilteredBirds(
             birdsArray.filter((bird) => bird.comName.includes(query))
           );
@@ -393,33 +396,26 @@ export default function SubmitSighting(){
 
     useEffect(() => {
         setUser(auth.currentUser);
+        const dateToday = new Date(parseInt(Date.now()));
+        setDate(`${dateToday.getDate()}/${dateToday.getMonth() + 1}/${dateToday.getFullYear()}`)
+        setTime(`${dateToday.getHours()}:${dateToday.getMinutes()}`)
       }, []);
 
     function submitSighting(){
         const data = {
             uid: user.uid,
+            speciesCode: bird.speciesCode,
             comName: nameCommon,
             sciName: nameSci,
             howMan: numberOfBirds,
             locNam: location,
+            obsDt: Date,
+            lat: lat,
+            lng: lng,
+            obsValid: true,
+            obsReviewed: false,
+            locationPrivate: true,
         }
-
-        // {
-        //     "speciesCode": "barswa",
-        //     "comName": "Barn Swallow",
-        //     "sciName": "Hirundo rustica",
-        //     "locId": "L19870226",
-        //     "locName": "Нeizvestnaya doroga, Almatı oblısı, KZ (46,233, 78,963)",
-        //     "obsDt": "2022-06-28 08:32",
-        //     "howMany": 2,
-        //     "lat": 46.2332196,
-        //     "lng": 78.9633996,
-        //     "obsValid": true,
-        //     "obsReviewed": false,
-        //     "locationPrivate": true,
-        //     "subId": "S113940491"
-        // }
-
         addDoc(collection(db, "sightings"), data)
             .then((res) => {
                 console.log(res);
@@ -428,6 +424,8 @@ export default function SubmitSighting(){
                 console.log(err);
             })
     }
+
+
 
     return(
     <View>
@@ -446,8 +444,14 @@ export default function SubmitSighting(){
 
         <TextInput style={styles.input} placeholder="Number of birds"></TextInput>
         <TextInput style={styles.input} placeholder="Location"></TextInput>
-        <TextInput style={styles.input} placeholder="Date of sighting"></TextInput>
-        <TextInput style={styles.input} placeholder="Time of sighting"></TextInput>
+
+
+        <Text style={styles.inputName}>Date & Time of sighting</Text>
+        <View >
+            <TextInput style={styles.input} placeholder={date} onChangeText={setDate}></TextInput>
+            <TextInput style={styles.input} placeholder={time} onChangeText={setTime}></TextInput>
+        </View>
+
         <TouchableOpacity onPress={submitSighting} style={styles.submitBtn}><Text>Submit</Text></TouchableOpacity>
         <View style={styles.autocompleteContainer}>
             <Autocomplete 
@@ -506,4 +510,9 @@ const styles = StyleSheet.create({
         position: 'absolute',
         margin: 20
       },
+    datePickerStyle: {
+      width: 200,
+      marginTop: 20,
+      alignSelf: "center",
+    },
   });
