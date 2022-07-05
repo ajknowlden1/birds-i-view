@@ -49,13 +49,15 @@ export const BirdLookup = (props: any) => {
 
   const styles = StyleSheet.create({
     autocompletField: {
-      fontSize: 13.5,
+      fontSize: 14,
+      width: 140,
     },
     lookupBtn: {
       fontSize: 13.5,
+      padding: 0,
     },
     selections: {
-      fontSize: 13.5,
+      fontSize: 13,
     },
   });
 
@@ -84,10 +86,12 @@ export const BirdLookup = (props: any) => {
             ),
           }}
         />
-        <Button
-          title="Look Up"
-          onPress={() => handleSubmitBirdLookup()}
-        ></Button>
+        <View style={styles.lookupBtn}>
+          <Button
+            title="Look Up"
+            onPress={() => handleSubmitBirdLookup()}
+          ></Button>
+        </View>
       </View>
     </>
   );
