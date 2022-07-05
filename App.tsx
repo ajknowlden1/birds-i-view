@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import {Login, Homefeed, Register, UserAccount, UserProfile, Map} from "./assets/components/"
+import {Login, Homefeed, Register, UserAccount, UserProfile, Map, SpeciesLookup} from "./assets/components/"
 
 const Stack = createStackNavigator();
 
@@ -35,6 +35,7 @@ export default function App(){
                 <Stack.Screen name="UserProfile" component={UserProfile} />
                 <Stack.Screen name="UserAccount" component={UserAccount} /> 
                 <Stack.Screen name="Map" component={Map} />
+                <Stack.Screen name="SpeciesLookup" component={SpeciesLookup} />
               </>
               ) : ( 
               <>

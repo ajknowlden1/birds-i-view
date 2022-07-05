@@ -13,3 +13,19 @@ export const getBirdsByLocation = (lat: number, lng: number) => {
       return res;
     });
 };
+
+export const getGBSpeciesCodes = () => {
+  return eBirdApi
+  .get('product/spplist/GB')
+  .then((res) => {
+    return res;
+  })
+}
+
+export const getAllBirds = () => {
+  return eBirdApi
+  .get('ref/taxonomy/ebird?fmt=json')
+  .then((res) => {
+    return res;
+  })
+}

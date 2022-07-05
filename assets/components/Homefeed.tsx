@@ -425,7 +425,7 @@ export default function Homefeed(props : any) {
           })}
         </View>
       </ScrollView>
-      <NavBottom postcode={postcode} setPostcode={setPostcode} setBirds={setBirds}></NavBottom>
+      <NavBottom postcode={postcode} setPostcode={setPostcode} setBirds={setBirds} navigation={navigation}></NavBottom>
     </>
   );
 }
