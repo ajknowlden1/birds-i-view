@@ -8,6 +8,7 @@ export const SpeciesPage = ({ route }) => {
   const { birdInfo } = route.params;
   const [birdPicture, setBirdPicture] = useState("");
   const [birdSummary, setBirdSummary] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     let birdWords = birdInfo.comName.split(" ");
@@ -33,9 +34,17 @@ export const SpeciesPage = ({ route }) => {
         <Text>{`(${birdInfo.sciName})`}</Text>
         <View>
           <Image
-            source={{ uri: birdPicture }}
+            source={
+              isLoading
+                ? {
+                    uri: "https://i2.wp.com/raw.githubusercontent.com/Codelessly/FlutterLoadingGIFs/master/packages/cupertino_activity_indicator.gif?w=770&is-pending-load=1#038;ssl=1",
+                  }
+                : { uri: birdPicture }
+            }
             style={{ width: 250, height: 250 }}
+            onLoad={() => setTimeout(() => setIsLoading(false), 1000)}
           ></Image>
+
           <Text>{birdSummary}</Text>
         </View>
       </View>
