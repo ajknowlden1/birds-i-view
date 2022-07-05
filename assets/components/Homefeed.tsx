@@ -412,6 +412,7 @@ export default function Homefeed(props: any) {
         postcode={postcode}
         setPostcode={setPostcode}
         setBirds={setBirds}
+        navigation={navigation}
       ></NavBottom>
     </>
   );

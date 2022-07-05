@@ -407,6 +407,16 @@ export default function SubmitSighting({navigation}: {navigation: any}){
       }, []);
 
       useEffect(() => {
+        (async () => {
+          let { status } = await Location.requestForegroundPermissionsAsync();
+          if (status !== 'granted') {
+            setErrorMsg('Permission to access location was denied');
+            return;
+          }
+        })();
+      }, []);
+
+      useEffect(() => {
         Location.getCurrentPositionAsync({accuracy: Location.Accuracy.Highest})
         .then((res) => {
           setLat(res.coords.latitude);
@@ -471,7 +481,7 @@ export default function SubmitSighting({navigation}: {navigation: any}){
         </View>
         <View style={styles.section}>
           <Text style={styles.inputName}>Location</Text>
-          <TextInput style={styles.input} placeholder={locat}></TextInput>
+          <TextInput style={styles.inputLoc} placeholder={locat}></TextInput>
         </View>
         <View style={styles.section}>
           <Text style={styles.inputName}>Date & Time of sighting</Text>
@@ -523,6 +533,13 @@ const styles = StyleSheet.create({
       textAlign: "center",
       fontSize: 18,
       padding: 10,
+    },
+    inputLoc: {
+      textAlign: "center",
+      fontSize: 18,
+      padding: 10,
+      overflow: "visible",
+      height: 80,
     },
     inputFlex: {
       fontSize: 18,
