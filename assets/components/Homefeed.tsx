@@ -7,8 +7,7 @@ import { getBirdPicture } from "../api/wikipedia";
 import { useTheme } from '@react-navigation/native';
 
 export default function Homefeed({route, navigation}, props: any) {
-  const [postcode, setPostcode] = useState("")
-  const navigation = props.navigation;
+  const [postcode, setPostcode] = useState("");
   const { colors } = useTheme();
 
   const [birds, setBirds] = useState([
