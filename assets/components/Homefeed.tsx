@@ -2,10 +2,10 @@ import { StyleSheet, Text, View, Image } from "react-native";
 import { NavBar } from "./NavBar";
 import { NavBottom } from "./NavBottom";
 import { useState } from "react";
-import { ScrollView } from "react-native-gesture-handler";
+import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 
-export default function Homefeed(props : any) {
-  const [postcode, setPostcode] = useState('')
+export default function Homefeed(props: any) {
+  const [postcode, setPostcode] = useState("");
 
   const navigation = props.navigation;
 
@@ -398,34 +398,48 @@ export default function Homefeed(props : any) {
     },
   });
 
+  const speciesPageNav = (bird: any) => {
+    navigation.navigate("SpeciesPage", { birdInfo: bird });
+  };
+
   return (
     <>
-      <NavBar postcode={postcode} setPostcode={setPostcode} navigation={navigation} ></NavBar>
+      <NavBar
+        postcode={postcode}
+        setPostcode={setPostcode}
+        navigation={navigation}
+      ></NavBar>
       <Text style={{ padding: 10 }}>Sightings Summary</Text>
       <ScrollView style={styles.localFeed} nestedScrollEnabled={true}>
         <View>
           {birds.map((bird) => {
             return (
-              <>
-                <View style={styles.listItem}>
-                  <Image
+              <TouchableOpacity onPress={() => speciesPageNav(bird)}>
+                <>
+                  <View style={styles.listItem}>
+                    {/* <Image
                     source={{
                       uri: "https://images.pexels.com/photos/70069/pexels-photo-70069.jpeg",
                     }}
                     style={{ width: 50, height: 50, padding: 2.5 }}
-                  ></Image>
-                  <Text>
-                    {bird.howMany
-                      ? `${bird.howMany} ${bird.comName} at ${bird.locName}`
-                      : `${bird.comName} at ${bird.locName}`}
-                  </Text>
-                </View>
-              </>
+                  ></Image> */}
+                    <Text>
+                      {bird.howMany
+                        ? `${bird.howMany} ${bird.comName} at ${bird.locName}`
+                        : `${bird.comName} at ${bird.locName}`}
+                    </Text>
+                  </View>
+                </>
+              </TouchableOpacity>
             );
           })}
         </View>
       </ScrollView>
-      <NavBottom postcode={postcode} setPostcode={setPostcode} setBirds={setBirds}></NavBottom>
+      <NavBottom
+        postcode={postcode}
+        setPostcode={setPostcode}
+        setBirds={setBirds}
+      ></NavBottom>
     </>
   );
 }
