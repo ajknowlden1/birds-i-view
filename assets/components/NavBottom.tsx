@@ -1,8 +1,8 @@
 import { useState, useEffect} from "react"
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { PostcodeLookup } from "./PostcodeLookup";
-import { BirdLookup } from "./BirdLookup";
 import { useTheme } from '@react-navigation/native';
+import { SpeciesLookup } from "./SpeciesLookup"
 
 export const NavBottom = (props: any) => {
   const { colors } = useTheme();
@@ -35,10 +35,14 @@ export const NavBottom = (props: any) => {
     props.navigation.navigate('SubmitSighting');
   }
 
+  function speciesLookupNav(){
+    props.navigation.navigate('SpeciesLookup', {navigation: props.navigation})
+  }
+  
   return (
     <>
       <View style={styles.navBar}>
-        <BirdLookup setBirds={props.setBirds}></BirdLookup>
+        <TouchableOpacity onPress={speciesLookupNav} setBirds={props.setBirds} style={styles.navItem}><Text style={styles.navBtnText}>Species Lookup</Text></TouchableOpacity>
         <PostcodeLookup setBirds={props.setBirds} postcode={props.postcode} setPostcode={props.setPostcode}></PostcodeLookup>
         <TouchableOpacity onPress={submitSightingNav} style={styles.navItem}><Text style={styles.navBtnText}>Submit Sighting</Text></TouchableOpacity>      
       </View>

@@ -26,7 +26,7 @@ export const NavBar = (props: any) => {
   }
 
   function mapNav() {
-    props.navigation.navigate("Map", { postcode: props.postcode });
+    props.navigation.navigate("Map", { setBirds: props.setBirds, postcode: props.postcode, setPostcode: props.setPostcode });
   }
 
   function homeNav() {

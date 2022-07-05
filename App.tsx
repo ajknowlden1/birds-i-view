@@ -1,6 +1,7 @@
 import { Image, Dimensions } from "react-native";
 import { auth } from "./assets/components/firebase/config";
 import React, { useState } from "react";
+
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -13,6 +14,7 @@ import {
   Map,
   SubmitSighting,
   UserSightings,
+  SpeciesLookup
 } from "./assets/components/";
 import { SpeciesPage } from "./assets/components/SpeciesPage";
 
@@ -43,11 +45,12 @@ export default function App() {
           <Stack.Navigator screenOptions={{ headerShown: false }}>
             {user ? (
               <>
-                <Stack.Screen name="Homefeed" component={Homefeed} />
+                <Stack.Screen name="Homefeed" component={Homefeed} initialParams={[]} />
                 <Stack.Screen name="UserProfile" component={UserProfile} />
                 <Stack.Screen name="UserAccount" component={UserAccount} /> 
                 <Stack.Screen name="SubmitSighting" component={SubmitSighting} />
                 <Stack.Screen name="Map" component={Map} />
+                <Stack.Screen name="SpeciesLookup" component={SpeciesLookup} />
                 <Stack.Screen name="SpeciesPage" component={SpeciesPage} />
                 <Stack.Screen name="UserSightings" component={UserSightings} />
               </>
