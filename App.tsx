@@ -4,9 +4,6 @@ import React, { useState } from "react";
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
 import {
   Login,
   Homefeed,
@@ -15,6 +12,7 @@ import {
   UserProfile,
   Map,
   SubmitSighting,
+  SpeciesLookup
 } from "./assets/components/";
 import { SpeciesPage } from "./assets/components/SpeciesPage";
 
@@ -41,7 +39,7 @@ export default function App() {
           <Stack.Navigator screenOptions={{ headerShown: false }}>
             {user ? (
               <>
-                <Stack.Screen name="Homefeed" component={Homefeed} />
+                <Stack.Screen name="Homefeed" component={Homefeed} initialParams={[]} />
                 <Stack.Screen name="UserProfile" component={UserProfile} />
                 <Stack.Screen name="UserAccount" component={UserAccount} /> 
                 <Stack.Screen name="SubmitSighting" component={SubmitSighting} />
