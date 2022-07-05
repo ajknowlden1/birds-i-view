@@ -4,10 +4,12 @@ import { NavBottom } from "./NavBottom";
 import { useState, useEffect } from "react";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { getBirdPicture } from "../api/wikipedia";
+import { useTheme } from '@react-navigation/native';
 
 export default function Homefeed({route, navigation}, props: any) {
-
-  const [postcode, setPostcode] = useState("");
+  const [postcode, setPostcode] = useState("")
+  const navigation = props.navigation;
+  const { colors } = useTheme();
 
   const [birds, setBirds] = useState([
     {
@@ -392,7 +394,7 @@ export default function Homefeed({route, navigation}, props: any) {
         setPostcode={setPostcode}
         navigation={navigation}
       ></NavBar>
-      <Text style={{ padding: 10 }}>Sightings Summary</Text>
+      <Text style={styles.title}>Sightings Summary</Text>
       <ScrollView style={styles.localFeed} nestedScrollEnabled={true}>
         <View>
           {birds.map((bird) => {
@@ -400,7 +402,7 @@ export default function Homefeed({route, navigation}, props: any) {
               <TouchableOpacity onPress={() => speciesPageNav(bird)}>
                 <>
                   <View style={styles.listItem}>
-                    <Text>
+                    <Text style={{ color: colors.text }}>
                       {bird.howMany
                         ? `${bird.howMany} ${bird.comName} at ${bird.locName}`
                         : `${bird.comName} at ${bird.locName}`}
@@ -423,6 +425,11 @@ export default function Homefeed({route, navigation}, props: any) {
 }
 
 const styles = StyleSheet.create({
+  title: {
+    fontSize: 25,
+    textAlign: "center",
+    color: "white",
+  },
   localFeed: {
     borderColor: "black",
     borderWidth: 2,
@@ -447,3 +454,4 @@ const styles = StyleSheet.create({
     padding: 1,
   },
 });
+

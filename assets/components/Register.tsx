@@ -1,13 +1,15 @@
 import {createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import {auth} from './firebase/config'
 import React, {useState} from "react"
-import {View, Text, StyleSheet, TextInput, TouchableOpacity, Alert} from "react-native"
+import {View, Text, StyleSheet, TextInput, TouchableOpacity, Alert, Dimensions, Image} from "react-native"
+import { useTheme } from '@react-navigation/native';
 
 export default function Register({navigation}: {navigation: any}){
-    const [email, setEmail] = React.useState('');
-    const [password, setPassword] = React.useState('');
-    const [confirmPassword, setConfirmPassword] = React.useState('');
-    const [username, setUsername] = React.useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [username, setUsername] = useState('');
+    const { colors } = useTheme();
 
     function register(){
         if (password !== confirmPassword){
@@ -28,11 +30,9 @@ export default function Register({navigation}: {navigation: any}){
     }
     
     return (
-        <View
-            style={styles.container}
-        >
+        <View style={styles.container}>
+            <Image source={require('../logos/biv-logo.jpeg')} style={styles.logo}></Image>
             <Text style={styles.text}>Register</Text>
-
             <TextInput
                 autoCapitalize='none'
                 style={styles.text} placeholder='email'
@@ -59,7 +59,7 @@ export default function Register({navigation}: {navigation: any}){
                 onChangeText={setConfirmPassword}
                 value={confirmPassword}
                 />
-            <TouchableOpacity style={styles.button} onPress={register}><Text>Register</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={register}><Text style={{ color: colors.text }}>Register</Text></TouchableOpacity>
         </View>
     );
 }
@@ -67,16 +67,24 @@ export default function Register({navigation}: {navigation: any}){
 const styles = StyleSheet.create({
     container:{
         marginTop: 50,
-        alignItems: 'center'},
+        alignItems: 'center'
+    },
     text:{
         padding: 15,
         fontSize: 25,
         margin: 5,
-        textAlign: "center"},
+        textAlign: "center",
+        color: "white",
+    },
     button:{
-        backgroundColor: '#9cbedb',
+        backgroundColor: '#5f7487',
         borderRadius: 15,
         marginTop: 5,
         padding: 10,
         fontSize: 35,
-        }})
+    },
+    logo:{
+        width: Dimensions.get('window').width * 0.5,
+        height: Dimensions.get('window').height * 0.2,
+    }
+})
