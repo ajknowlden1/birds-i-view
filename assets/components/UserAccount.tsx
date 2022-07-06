@@ -100,9 +100,10 @@ export default function UserAccount() {
           placeholder={user.displayName}
           onChangeText={setUpdatedUsername}
           value={updatedUsername}
+          placeholderTextColor="lightgrey"
         ></TextInput>
         { updatedUsername !== "" ? <TouchableOpacity style={styles.updateBtn} onPress={updateUserUsername}> 
-          <Text>Update</Text>
+          <Text style={styles.btnText}>Update</Text>
         </TouchableOpacity> : null}
       </View>
       <Text style={styles.text}>Registered email:</Text>
@@ -112,9 +113,10 @@ export default function UserAccount() {
           placeholder={user.email}
           onChangeText={setUpdatedEmail}
           value={updatedEmail}
+          placeholderTextColor="lightgrey"
         ></TextInput>
         {updatedEmail !== "" ? <TouchableOpacity style={styles.updateBtn} onPress={updateUserEmail}>
-          <Text>Update</Text>
+          <Text style={styles.btnText}>Update</Text>
         </TouchableOpacity> : null}
       </View>
       <Text style={styles.text}>Member Since {createdAt}</Text>
@@ -124,6 +126,7 @@ export default function UserAccount() {
             autoCapitalize='none' 
             secureTextEntry={true} 
             placeholder="Password" 
+            placeholderTextColor="lightgrey"
             value={password}
             onChangeText={setPassword}>
         </TextInput>
@@ -131,11 +134,12 @@ export default function UserAccount() {
             style={styles.password} 
             autoCapitalize='none' 
             secureTextEntry={true} 
+            placeholderTextColor="lightgrey"
             placeholder="Confirm Password" 
             value={confirmPassword}
             onChangeText={setConfirmPassword}>
         </TextInput>
-        {password !== "" ? <TouchableOpacity style={styles.updateBtn} onPress={updatePass}><Text>Update</Text></TouchableOpacity> : null}
+        {password !== "" ? <TouchableOpacity style={styles.updateBtn} onPress={updatePass}><Text style={styles.btnText}>Update</Text></TouchableOpacity> : null}
 </View>
   );
 }
@@ -145,23 +149,31 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 25,
     textDecorationLine: "underline",
+    color: "white",
   },
   text: {
     fontSize: 18,
     textAlign: "left",
     marginLeft: 15,
     margin: 10,
+    color: "white"
+  },
+  btnText: {
+    color: "white"
   },
   textInfo: {
     flex: 1,
     fontSize: 17,
     marginLeft: 30,
     textAlign: "left",
+    color: "white",
   },
   updateBtn: {
-    backgroundColor: "#9cbedb",
+    backgroundColor: '#1c264d',
+    borderRadius: 10,
+    elevation: 20,
+    shadowColor: "black",
     width: 70,
-    borderRadius: 15,
     margin: 5,
     marginRight: 30,
     padding: 5,
@@ -172,5 +184,7 @@ const styles = StyleSheet.create({
     fontSize: 17,
     marginLeft: 30,
     textAlign: "left",
+    color: "white"
   }
+  
 });

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, Button } from "react-native";
+import { StyleSheet, Text, View, Image, ActivityIndicator } from "react-native";
 import { NavBar } from "./NavBar";
 import { NavBottom } from "./NavBottom";
 import { useState, useEffect } from "react";
@@ -27,26 +27,51 @@ export const SpeciesPage = ({ route }) => {
     getBirdSummary(formattedName).then((res) => {
       setBirdSummary(res);
     });
-  });
+  }, []);
 
   const styles = StyleSheet.create({
     summaryView: {
-      borderColor: "black",
-      borderWidth: 2,
-      borderRadius: 10,
-      marginBottom: 2.5,
-      height: 400,
-      marginLeft: 20,
-      marginRight: 20,
-      marginTop: 75,
       padding: 15,
+      height: 300,
+      backgroundColor: "#2c3c7a",
+    },
+    scrollContainer: {
+      borderColor: "#1c264d",
+      borderWidth: 3,
+      borderRadius: 10,
+      marginHorizontal: 20,
+      overflow: "hidden",
     },
     speciesView: {
-      marginTop: 100,
-      marginLeft: 20,
-      marginRight: 20,
+      marginTop: 20,
+      marginHorizontal: 20,
       justifyContent: "center",
-      height: 100,
+    },
+    speciesImage: {
+      width: 225,
+      height: 225,
+      marginBottom: 20,
+      marginLeft: 50,
+      marginRight: 50,
+      alignSelf: "center",
+      borderColor: "#1c264d",
+      borderWidth: 2,
+      borderRadius: 10,
+    },
+    scrollText: {
+      color: "white",
+      fontSize: 18,
+    },
+    button: {
+      backgroundColor: '#1c264d',
+      borderRadius: 15,
+      margin: 15,
+      fontSize: 25,
+      elevation: 20,
+      shadowColor: "black",
+      padding: 10,
+      width: 250,
+      alignSelf: "center",
     },
   });
   return (
@@ -61,48 +86,31 @@ export const SpeciesPage = ({ route }) => {
               justifyContent: "center",
             }}
           >
-            <Text style={{ fontSize: 24 }}>{birdInfo.comName}</Text>
+            <Text style={{ fontSize: 24, color: "white", textAlign: "center" }}>{birdInfo.comName}</Text>
             <Text
-              style={{ textAlign: "center" }}
+              style={{ textAlign: "center", color: "white"}}
             >{`(${birdInfo.sciName})`}</Text>
           </View>
 
           <View style={styles.speciesView}>
             <Image
-              source={
-                isLoading
-                  ? {
-                      uri: "https://i2.wp.com/raw.githubusercontent.com/Codelessly/FlutterLoadingGIFs/master/packages/cupertino_activity_indicator.gif?w=770&is-pending-load=1#038;ssl=1",
-                    }
-                  : { uri: birdPicture }
-              }
-              style={{
-                width: 225,
-                height: 225,
-                marginBottom: 20,
-                marginLeft: 50,
-                marginRight: 50,
-                alignSelf: "center",
-                borderColor: "black",
-                borderWidth: 2,
-              }}
-              onLoad={() => setTimeout(() => setIsLoading(false), 1000)}
+              source={isLoading ? { uri: "https://cdn.dribbble.com/users/338744/screenshots/2886346/media/bbf63c04dcd46615b991766275c6699b.gif" } : { uri: birdPicture }}
+              style={styles.speciesImage}
+              onLoad={() => setTimeout(() => setIsLoading(false), 500)}
             ></Image>
           </View>
-
+          <View style={styles.scrollContainer}>
           <ScrollView nestedScrollEnabled={true} style={styles.summaryView}>
-            <View>
-              <Text>{birdSummary}</Text>
-            </View>
+              <View style={{marginBottom:30 }}>
+                <Text style={styles.scrollText}>{birdSummary}</Text>
+              </View>
           </ScrollView>
+          </View>
           <TouchableOpacity
-            style={{ marginTop: 30, width: 200, alignSelf: "center" }}
+            style={styles.button}
+            onPress={() => navigation.navigate("Homefeed")}
           >
-            <Button
-              color={"royalblue"}
-              title="Return to Sightings Summary"
-              onPress={() => navigation.navigate("Homefeed")}
-            ></Button>
+            <Text style={{color: "white", textAlign: "center", fontSize: 16}}>Return to Sightings Summary</Text>
           </TouchableOpacity>
         </View>
       </View>

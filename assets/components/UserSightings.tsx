@@ -24,7 +24,8 @@ export default function UserSighting(){
             marginHorizontal: 20,
             marginVertical: 10,
             borderWidth: 3,
-            borderColor: colors.text,
+            borderColor: "#1c264d",
+            borderRadius: 10,
         },
         bird: {
             fontSize: 20,
@@ -74,7 +75,7 @@ export default function UserSighting(){
             { userSightings.length > 0 ? 
             userSightings.map((sighting) => {
                 return (
-                <View style={styles.sighting}>
+                <View key={userSightings.indexOf(sighting)} style={styles.sighting}>
                     <Text style={styles.bird}>{sighting.howMan} {sighting.comName}</Text>
                     <Text style={styles.location}>{sighting.locNam}</Text>
                     <View style={{ flexDirection: "row" }}>

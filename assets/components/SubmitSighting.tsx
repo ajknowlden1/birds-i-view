@@ -421,10 +421,14 @@ export default function SubmitSighting({navigation}: {navigation: any}){
         .then((res) => {
           setLat(res.coords.latitude);
           setLng(res.coords.longitude);
-          getAddressByLatLon(res.coords.latitude, res.coords.longitude)
-          .then((address: any) => {setLocation(address.data.results[0].formatted_address)})
         })
       }, []);
+
+      useEffect(() => {
+        if(lat && lng){
+        getAddressByLatLon(lat, lng)
+        .then((address: any) => {setLocation(address.data.results[0].formatted_address)})}
+      }, [lat, lng])
 
       let locat = 'Getting location...';
       if (errorMsg) {
@@ -477,26 +481,27 @@ export default function SubmitSighting({navigation}: {navigation: any}){
         </View>
         <View style={styles.section}>
           <Text style={styles.inputName}>Number of birds</Text>
-          <TextInput style={styles.input} placeholder={`${numberOfBirds}`} onChangeText={setNumberOfBirds} keyboardType="numeric"></TextInput>
+          <TextInput style={styles.input} placeholder={`${numberOfBirds}`} placeholderTextColor="lightgray" onChangeText={setNumberOfBirds} keyboardType="numeric"></TextInput>
         </View>
         <View style={styles.section}>
           <Text style={styles.inputName}>Location</Text>
-          <TextInput style={styles.inputLoc} placeholder={locat}></TextInput>
+          <TextInput style={styles.inputLoc} placeholderTextColor="lightgray" placeholder={locat}></TextInput>
         </View>
         <View style={styles.section}>
           <Text style={styles.inputName}>Date & Time of sighting</Text>
           <View style={{ flexDirection: "row" }}>
-              <TextInput style={styles.inputFlex} placeholder={date} onEndEditing={() => setDate}></TextInput>
-              <TextInput style={styles.inputFlex} placeholder={time} onEndEditing={() => setTime}></TextInput>
+              <TextInput style={styles.inputFlex} placeholder={date} placeholderTextColor="lightgray" onEndEditing={() => setDate}></TextInput>
+              <TextInput style={styles.inputFlex} placeholder={time} placeholderTextColor="lightgray" onEndEditing={() => setTime}></TextInput>
           </View>
         </View>
-        <TouchableOpacity onPress={submitSighting} style={styles.submitBtn}><Text>Submit</Text></TouchableOpacity>
+        <TouchableOpacity onPress={submitSighting} style={styles.submitBtn}><Text style={{color: "white"}}>Submit</Text></TouchableOpacity>
         <View style={styles.autocompleteContainer}>
             <Autocomplete 
             data={filteredBirds}
             value={nameCommon}
             onChangeText={(text) => {findBird(text); setNameCommon(text)}}
             placeholder="Common Name"
+            placeholderTextColor="lightgray"
             flatListProps={{
                 renderItem: ({ item }) => 
                 <TouchableOpacity onPress={() => {setNameCommon(item.comName); setFilteredBirds([])}}>
@@ -514,16 +519,17 @@ const styles = StyleSheet.create({
     title: {
       textAlign: "center",
       fontSize: 25,
+      color: "white",
     },
     sectionTop: {
-      borderColor: "black",
+      borderColor: '#1c264d',
       borderBottomWidth: 3,
       borderTopWidth: 3,
       margin: 20,
       padding: 5,
     },
     section: {
-        borderColor: "black",
+        borderColor: '#1c264d',
         borderBottomWidth: 3,
         marginTop: 0,
         margin: 20,
@@ -533,6 +539,7 @@ const styles = StyleSheet.create({
       textAlign: "center",
       fontSize: 18,
       padding: 10,
+      color: "white",
     },
     inputLoc: {
       textAlign: "center",
@@ -549,14 +556,17 @@ const styles = StyleSheet.create({
         textAlign: "left",
         marginLeft: 20,
         fontSize: 18,
+        color: "white",
     },
     submitBtn: {
-      backgroundColor: "#9cbedb",
+      backgroundColor: '#1c264d',
       width: 70,
-      borderRadius: 15,
-      padding: 5,
+      borderRadius: 10,
+      padding: 10,
       alignItems: "center",
       alignSelf: "center",
+      elevation: 20,
+      shadowColor: "black",
     },
     autocompleteContainer: {
         flex: 1,
