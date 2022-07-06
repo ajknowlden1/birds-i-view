@@ -421,10 +421,14 @@ export default function SubmitSighting({navigation}: {navigation: any}){
         .then((res) => {
           setLat(res.coords.latitude);
           setLng(res.coords.longitude);
-          getAddressByLatLon(res.coords.latitude, res.coords.longitude)
-          .then((address: any) => {setLocation(address.data.results[0].formatted_address)})
         })
       }, []);
+
+      useEffect(() => {
+        if(lat && lng){
+        getAddressByLatLon(lat, lng)
+        .then((address: any) => {setLocation(address.data.results[0].formatted_address)})}
+      }, [lat, lng])
 
       let locat = 'Getting location...';
       if (errorMsg) {

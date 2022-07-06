@@ -75,7 +75,7 @@ export default function UserSighting(){
             { userSightings.length > 0 ? 
             userSightings.map((sighting) => {
                 return (
-                <View style={styles.sighting}>
+                <View key={userSightings.indexOf(sighting)} style={styles.sighting}>
                     <Text style={styles.bird}>{sighting.howMan} {sighting.comName}</Text>
                     <Text style={styles.location}>{sighting.locNam}</Text>
                     <View style={{ flexDirection: "row" }}>

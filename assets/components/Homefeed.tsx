@@ -81,7 +81,7 @@ export default function Homefeed({route, navigation}, props: any) {
         <View>
           {birds.map((bird) => {
             return (
-              <TouchableOpacity onPress={() => speciesPageNav(bird)}>
+              <TouchableOpacity key={birds.indexOf(bird)} onPress={() => speciesPageNav(bird)}>
                 <>
                   <View style={styles.listItem}>
                     <Text style={styles.listItemText}>
