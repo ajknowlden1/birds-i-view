@@ -24,7 +24,8 @@ export default function UserSighting(){
             marginHorizontal: 20,
             marginVertical: 10,
             borderWidth: 3,
-            borderColor: colors.text,
+            borderColor: "#1c264d",
+            borderRadius: 10,
         },
         bird: {
             fontSize: 20,

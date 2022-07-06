@@ -38,14 +38,18 @@ export default function Login({navigation}: {navigation: any}) {
             <Text style={styles.text}>Login</Text>
             <TextInput
                 autoCapitalize='none'
-                style={styles.text} placeholder='email'
+                style={styles.textPlace} 
+                placeholder='email'
+                placeholderTextColor="lightgray"
                 onChangeText={setEmail}
                 value={email}
                 />
             <TextInput
                 autoCapitalize='none'
                 secureTextEntry={true}
-                style={styles.text} placeholder='password'
+                style={styles.textPlace} 
+                placeholder='password'
+                placeholderTextColor="lightgray"
                 onChangeText={setPassword}
                 value={password}
                 />
@@ -69,12 +73,25 @@ const styles = StyleSheet.create({
         textAlign: "center",
         color: "white",
     },
+    textPlace:{
+        padding: 15,
+        fontSize: 25,
+        width: Dimensions.get('window').width * 0.75,
+        margin: 5,
+        textAlign: "center",
+        color: "white",
+        borderColor: "white",
+        borderWidth: 2,
+        borderRadius: 10,
+    },
     button:{
-        backgroundColor: '#5f7487',
-        borderRadius: 15,
+        backgroundColor: '#1c264d',
+        borderRadius: 10,
         marginTop: 5,
         padding: 10,
         fontSize: 35,
+        elevation: 20,
+        shadowColor: "black",
     },
     logo:{
         width: Dimensions.get('window').width * 0.5,

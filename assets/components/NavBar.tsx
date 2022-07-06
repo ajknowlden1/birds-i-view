@@ -7,10 +7,10 @@ export const NavBar = (props: any) => {
     navBar: {
       flex: 0.125,
       flexDirection: "row",
-      marginLeft: "auto",
-      marginRight: "auto",
       marginTop: 2.5,
       justifyContent: "center",
+      position: "absolute",
+      alignSelf: "center",
     },
     navItem: {
       paddingLeft: 20,

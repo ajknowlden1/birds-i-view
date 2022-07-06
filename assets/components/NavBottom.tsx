@@ -1,8 +1,6 @@
-import { useState, useEffect} from "react"
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { PostcodeLookup } from "./PostcodeLookup";
 import { useTheme } from '@react-navigation/native';
-import { SpeciesLookup } from "./SpeciesLookup"
 
 export const NavBottom = (props: any) => {
   const { colors } = useTheme();
@@ -14,8 +12,8 @@ export const NavBottom = (props: any) => {
       height: "auto",
       justifyContent: "center",
       alignContent: "center",
-      borderColor: "black",
-      borderWidth: 2,
+      borderColor: "#1c264d",
+      borderTopWidth: 4,
     },
     navItem: {
       paddingLeft: 20,
@@ -23,11 +21,17 @@ export const NavBottom = (props: any) => {
       flex: 1,
       fontSize: 20,
       textAlign: "center",
+      justifyContent: "center",
     },
     navBtnText: {
       fontSize: 20,
       textAlign: "center",
       color: colors.text,
+      borderRadius: 10,
+      padding: 5,
+      backgroundColor: "#1c264d",
+      elevation: 20,
+      shadowColor: "black",
     }
   });
 

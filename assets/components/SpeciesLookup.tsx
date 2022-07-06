@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, TextInput, Button, ScrollView, TouchableOpacity} from "react-native";
+import { StyleSheet, View, Text, TextInput, Button, Alert, TouchableOpacity} from "react-native";
 import {useEffect, useState } from "react";
 import {getBirdBySpeciesCode} from "../api/ebird";
 import {britBirds} from "../../britBirds";
@@ -49,7 +49,7 @@ export default function SpeciesLookup(props:any){
     function submit(){
         let index = commonNames.indexOf(birdName)
         if(index === -1){
-            setBirdError('Please insert a valid bird name.')
+            Alert.alert('Please insert a valid bird name.')
         }
         setSpeciesCode(speciesCodes[index])
     }
@@ -63,9 +63,10 @@ export default function SpeciesLookup(props:any){
                     style={styles.text}
                     placeholder='Enter Bird Name'
                     onChangeText={setBirdName}
+                    placeholderTextColor="lightgray"
                     value={birdName}
                 />
-                <TouchableOpacity style={styles.button} onPress={submit}><Text>Find Bird</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={submit}><Text style={{color: "white"}}>Find Bird</Text></TouchableOpacity>
                 
             </View>
         )
@@ -74,9 +75,9 @@ export default function SpeciesLookup(props:any){
         return (
             <View style={styles.container}>
                 <Text style={styles.text}>Viewing information for {birdName}:</Text>
-                <TouchableOpacity style={styles.button} onPress={speciesNav}><Text styles={styles.text}>View Bird Profile</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={speciesNav}><Text style={{color: "white"}}>View Bird Profile</Text></TouchableOpacity>
                 <Text style={styles.text}>Recent sightings nationwide: {sightings.length}</Text>
-                <TouchableOpacity style={styles.button} onPress={mapNav}><Text styles={styles.text}>View on Map</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={mapNav}><Text style={{color: "white"}}>View on Map</Text></TouchableOpacity>
             </View>
         )
     }
@@ -91,7 +92,9 @@ const styles = StyleSheet.create({
         padding: 15,
         fontSize: 25,
         margin: 5,
-        textAlign: "center"},
+        textAlign: "center",
+        color: "white",
+    },
     textError:{
         color: 'red',
         padding: 15,
@@ -99,9 +102,11 @@ const styles = StyleSheet.create({
         margin: 5,
         textAlign: "center"},
     button:{
-        backgroundColor: '#9cbedb',
-        borderRadius: 15,
+        backgroundColor: '#1c264d',
+        borderRadius: 10,
         marginTop: 5,
         padding: 10,
         fontSize: 35,
+        elevation: 20,
+        shadowColor: "black",
         }})

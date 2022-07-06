@@ -15,6 +15,7 @@ export default function Map({ route }) {
   const [positioned, setPositioned] = useState(false);
   const [loading, setLoading] = useState(true);
   const [bird, setBird] = useState({});
+  const [isPostCode, setIsPostCode] = useState(true);
 
   interface IPoints {
     latitude: number;
@@ -37,7 +38,7 @@ export default function Map({ route }) {
   
   useEffect(() => {
     if(!postcode && sightings){
-      console.log(sightings)
+      setIsPostCode(false)
       setLat(53.8008)
       setLng(-1.5491)
       setDelta(5);
@@ -70,7 +71,8 @@ export default function Map({ route }) {
   if (positioned && points.length > 0) {
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>Sightings Heatmap</Text>
+        <Text style={styles.title}>Sightings Heatmap</Text>
+        <View style={styles.mapBox}>
         <MapView
           loadingEnabled
           style={styles.map}
@@ -93,16 +95,21 @@ export default function Map({ route }) {
             }}
           />
         </MapView>
+        </View>
         <View style={styles.navBar}>
+          { !isPostCode ?
+          <>
         <TouchableOpacity style={styles.button}><Text style={styles.text} onPress={homeNav}>Summary of Sightings</Text></TouchableOpacity>
         <TouchableOpacity style={styles.button}><Text style={styles.text} onPress={speciesNav}>Bird Info Page</Text></TouchableOpacity>
+        </>
+      : null }
         </View>
       </View>
     );
   } else {
     return (
       <View>
-        <Text style={styles.text}>Please Select a Postcode or A Bird Species</Text>
+        <Text style={styles.title}>Please Select a Postcode or A Bird Species</Text>
       </View>
     );
   }
@@ -117,17 +124,33 @@ const styles = StyleSheet.create({
     marginTop: 15,
     alignItems: "center",
   },
+  mapBox: {
+    borderStyle: "solid",
+    borderWidth: 3,
+    borderColor: "#1c264d",
+    borderRadius: 20,
+    overflow: "hidden",
+  },
   text: {
     padding: 15,
     fontSize: 15,
     margin:5,
     textAlign: "center",
+    color: "white"
+  },
+  title: {
+    fontSize: 30,
+    margin:5,
+    textAlign: "center",
+    color: "white"
   },
   button: {
-    backgroundColor: "#9cbedb",
+    backgroundColor: '#1c264d',
     borderRadius: 15,
     margin: 15,
     fontSize: 25,
+    elevation: 20,
+    shadowColor: "black",
   },
   navBar: {
     flexDirection: "row",
