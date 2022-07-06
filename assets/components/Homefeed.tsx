@@ -4,9 +4,9 @@ import { NavBottom } from "./NavBottom";
 import { useState, useEffect } from "react";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { getBirdPicture } from "../api/wikipedia";
-import { useTheme } from '@react-navigation/native';
+import { useTheme } from "@react-navigation/native";
 
-export default function Homefeed({route, navigation}, props: any) {
+export default function Homefeed({ route, navigation }, props: any) {
   const [postcode, setPostcode] = useState("");
   const { colors } = useTheme();
 
@@ -381,10 +381,10 @@ export default function Homefeed({route, navigation}, props: any) {
   };
 
   useEffect(() => {
-    if(route.params.sightings){
-      setBirds(route.params.sightings)
+    if (route.params.sightings) {
+      setBirds(route.params.sightings);
     }
-  },[route.params])
+  }, [route.params]);
 
   return (
     <>
@@ -453,4 +453,3 @@ const styles = StyleSheet.create({
     padding: 1,
   },
 });
-
