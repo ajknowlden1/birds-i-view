@@ -4,6 +4,7 @@ import { NavBottom } from "./NavBottom";
 import { useState, useEffect } from "react";
 import { getBirdPicture, getBirdSummary } from "../api/wikipedia";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
+import { BirdSound } from "./BirdSound";
 
 export const SpeciesPage = ({ route }) => {
   const { birdInfo, navigation } = route.params;
@@ -88,6 +89,7 @@ export const SpeciesPage = ({ route }) => {
               }}
               onLoad={() => setTimeout(() => setIsLoading(false), 1000)}
             ></Image>
+            <BirdSound />
           </View>
 
           <ScrollView nestedScrollEnabled={true} style={styles.summaryView}>
